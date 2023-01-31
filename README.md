@@ -67,6 +67,6 @@ PATCH - Update a specific review
 
 
 MÖTE 2023-01-31
-- Strukturerat upp projektet med hjälp av Whimsical
-- Börjat bryta ner projektet i mindre delar med Canban board i Trello
-- Designade API i Whimsical
+- Strukturerat upp projektet med hjälp av Whimsical https://whimsical.com/spegeln-uppgift-2-6SejFCXVWGgqbVV2RWTkLt
+- Börjat bryta ner projektet i mindre delar med Canban board i Trello https://trello.com/b/5jfpVKRz/inl%C3%A4mningsuppgift-2-visningar-betyg-recensioner
+- Designade API i Whimsical https://whimsical.com/spegeln-uppgift-2-6SejFCXVWGgqbVV2RWTkLt
