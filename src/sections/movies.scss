@@ -1,0 +1,56 @@
+
+
+.movie-content{
+    @include container;
+
+    .movies-now, .movies-later{
+        display: grid;
+       grid-template-columns: repeat(3,1fr);
+
+       
+.img-div{
+    width: 350px;
+    height: 600px;
+
+    
+ img{
+    width: 90%;
+    height: 100%;
+    object-fit: cover;
+    margin: 1rem auto;
+    display: block;
+    
+     
+}
+
+
+    
+}
+     
+    }
+
+}
+
+.movies{
+
+    background-color: white;
+    margin: 1rem;
+
+  
+
+    p{
+        margin-left: 1rem;
+        color: gray;
+        font-weight: 500;
+    }
+}
+
+.heading-1, .heading-2{
+    margin: 1rem;
+}
+
+@media (max-width: $bp-medium) {
+    .heading-1, .heading-2{
+       text-align: center;
+    }
+}

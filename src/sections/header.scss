@@ -1,0 +1,33 @@
+.header {
+    @include container;
+    
+    display: flex;
+    justify-content: space-between;
+    padding: .5em 1em;
+
+    &-logo {
+       width: 4rem;
+    }
+}
+
+.socials-list {
+    display: none;
+    gap: .5em;
+    
+    i {
+        font-size: 1rem;
+        color: $white-color;
+
+        &:hover {
+            color: $text-color;
+        }
+    }
+}
+
+@media (min-width: $bp-medium) {
+    .socials-list {
+        display: flex;
+    }
+}
+
+

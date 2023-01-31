@@ -1,0 +1,50 @@
+.main-nav {
+    @include container;
+    
+    border-radius: 5px;
+    background-color: $container-color;
+}
+
+.nav-menu {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    text-align: center;
+
+    a  {
+        border: 3px $background-color;
+        border-style: none solid none none;
+        padding: 0 1.5em;
+
+        &:last-child {
+            border: none;
+        }
+    }
+
+    a {
+        font-size: .8rem;
+    }
+}
+
+.toggle-menu {
+    display: none;
+    position: absolute;
+    top: 0.2em;
+    right: .5em;
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: $white-color;
+}
+
+@media (max-width: $bp-medium) {
+    .nav-menu {
+        display: none;
+    }
+
+    .toggle-menu {
+        display: block;
+    }
+}

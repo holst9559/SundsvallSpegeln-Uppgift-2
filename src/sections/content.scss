@@ -1,0 +1,30 @@
+.content-text {
+  p {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  h3 {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+}
+
+.tickets, .about-us{
+  p {
+    max-width: 800px;
+  }
+}
+
+
+.content-body {
+  background-color: $container-color;
+  max-width: 1280px;
+  margin: 0.3em auto;
+  border-radius: 5px;
+  padding-bottom: 1rem;
+}

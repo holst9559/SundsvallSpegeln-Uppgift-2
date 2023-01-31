@@ -1,0 +1,150 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../src/main.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="header">
+      <a href="/homepage">
+        <img
+          class="header-logo"
+          src="../src/assets/biospegeln_100_white.png"
+          alt="Spegeln logo"
+        />
+      </a>
+
+      <ul class="socials-list">
+        <li>
+          <a href="/"><i class="fa-brands fa-facebook"></i></a>
+        </li>
+        <li>
+          <a href="/"><i class="fa-brands fa-instagram"></i></a>
+        </li>
+        <li>
+          <a href="/"><i class="fa-brands fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="/"><i class="fa-solid fa-envelope"></i></a>
+        </li>
+      </ul>
+    </header>
+
+    <nav class="main-nav">
+      <button class="toggle-menu"><i class="fa-solid fa-bars"></i></button>
+
+      <menu class="nav-menu">
+        <a href="/contact">Öppettider & Kontakt</a>
+
+        <a href="/about">Om Spegeln</a>
+
+        <a href="/tickets">Biljettinfo</a>
+
+        <a href="/news">Vill du ha vårt nyhetsbrev?</a>
+
+        <a href="/giftcard">Köp presentkort</a>
+
+      </menu>
+    </nav>
+
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+        <li>
+          <button class="dropdown-toggle">REPERTUAR</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Hela bioprogrammet</a>
+            </li>
+            <li>
+              <a href="/">Kommande premiärer</a>
+            </li>
+            <li>
+              <a href="/">Matinèfilm för 100kr</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">SALONGER</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Salong Alcazar</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">SPECIALVISNINGAR</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Klassiker</a>
+            </li>
+            <li>
+              <a href="/">Fukostbio</a>
+            </li>
+            <li>
+              <a href="/">Cinemateket</a>
+            </li>
+            <li>
+              <a href="/">Galapremiärer</a>
+            </li>
+            <li>
+              <a href="/">Dokumentärer</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">LIVE PÅ BIO</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Hela programmet</a>
+            </li>
+            <li>
+              <a href="/">Opera</a>
+            </li>
+            <li>
+              <a href="/">Teater</a>
+            </li>
+            <li>
+              <a href="/">Konst</a>
+            </li>
+            <li>
+              <a href="/">Konsert</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">BAR & BISTRO</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Meny</a>
+            </li>
+            <li>
+              <a href="/">Premiärfredag</a>
+            </li>
+            <li>
+              <a href="/">Filmquiz</a>
+            </li>
+          </menu>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="content-body" id="contentBody">
+      {{{body}}}
+
+    </div>
+
+    <script src="../src/js/main.js" type="module"></script>
+  </body>
+
+</html>

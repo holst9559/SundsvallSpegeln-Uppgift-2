@@ -1,0 +1,32 @@
+<section class="visningstider">
+  <h2>
+    VISNINGSTIDER
+  </h2>
+</section>
+<section class="content-right-now movie-content">
+  <div class="showing-now">
+    <h1 class="heading-1">PÅ BIO JUST NU</h1>
+    <div class="movies-now">
+      {{#each movies}}
+        <div class="movies">
+          <div class="img-div">
+            <img src="{{this.attributes.image.url}}" />
+          </div>
+          <a href="/movie/{{this.id}}">
+            {{this.attributes.title}}
+          </a>
+        </div>
+      {{/each}}
+    </div>
+
+  </div>
+
+  <div class="showing-later">
+    <h1 class="heading-2">KOMMER SNART</h1>
+    <div class="movies-later">
+    </div>
+  </div>
+</section>
+<section class="comming-soon">
+
+</section>
