@@ -2,7 +2,7 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
 
-import { getMovies, getMovie } from "../data/moviesData.js";
+import { getMovies, getMovie } from "./moviesData.js";
 
 const app = express();
 
@@ -58,6 +58,6 @@ app.get("/movie/:movieId", async (req, res) => {
     }
 })
 
-app.use("/src", express.static("./src"));
+app.use("/static", express.static("./static"));
 
 export default app;

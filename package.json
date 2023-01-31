@@ -9,7 +9,7 @@
   "name": "spegelnexpress",
   "description": "NAMNKONVENTIONER\r --------------------------------------\r filer = camelCase.js, camelCase.html, camelCase.scss\r branch = camelCase",
   "version": "1.0.0",
-  "main": "./src/express/express.js",
+  "main": "express.js",
   "scripts": {
     "start": "nodemon .",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
