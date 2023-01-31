@@ -1,7 +1,7 @@
 import request from "supertest";
 
-import app from "../src/express/server.js";
-import getData from "../src/data/moviesData.js";
+import app from "../src/server.js";
+import getData from "../src/moviesData.js";
 
 const movies = await getData();
 
