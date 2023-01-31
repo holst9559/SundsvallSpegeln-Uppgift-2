@@ -15,6 +15,7 @@ GIT TIPS & TRICKS
 - Göra git pull från main branch innan man gör en pull request (förminskar merge konflikter)
 - Minst två "approves" på pull-requests innan merge.
 - Lägg gärna upp bilder eller videor i din Pull-Request :)
+- Länka PR i ditt Trellokort
 
 
 ## API DOCUMENTATION
