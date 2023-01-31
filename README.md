@@ -1,7 +1,7 @@
 # BioSida
 
 NAMNKONVENTIONER
---------------------------------------
+----------------------------------------
 filer = camelCase.js, camelCase.html, camelCase.scss
 branch = camelCase
 
