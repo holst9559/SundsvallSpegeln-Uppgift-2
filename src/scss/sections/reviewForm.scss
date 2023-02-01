@@ -1,0 +1,36 @@
+.review-form {
+    display: none;
+
+    background-color: $container-color;
+
+    &.show {
+        display: block;
+    }
+
+    h3 {
+        font-size: .7rem;
+    }
+
+    .stars {
+        display: flex;
+        gap: .2em;
+    }
+
+    .star {
+        content: url('/static/assets/star-regular.svg');
+        width: 20px;
+
+        &.solid {
+            content: url('/static/assets/star-solid.svg');
+        }
+
+        &.half {
+            content: url('/static/assets/star-half-stroke-regular.svg');
+        }
+
+        &:hover {
+            background-color: blue;
+        }
+    }
+}
+
