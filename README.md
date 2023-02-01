@@ -36,8 +36,8 @@ GET - Get all screenings for specific movie with {id}
 Query Strings
     ?sortBy=upcoming
 
-### /api/screenings
-GET - Get all screenings
+### /api/upcoming-screenings
+GET - Get upcoming screenings
 
 Query Strings
     ?end_time=(+5days from request) //Filter by coming 5 days
