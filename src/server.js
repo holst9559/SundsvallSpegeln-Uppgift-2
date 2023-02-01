@@ -2,7 +2,7 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
 
-import { getMovies, getMovie } from "./moviesData.js";
+import * as api from './api.js';
 
 const app = express();
 
@@ -16,12 +16,12 @@ app.set("view engine", "handlebars");
 app.set("views", "./handlebars-templates");
 
 app.get("/", async (req, res) => {
-    const movies = await getMovies();
+    const movies = await api.getMovies();
     res.render("homepage", { movies });
 });
 
 app.get("/homepage", async (req, res) => {
-    const movies = await getMovies();
+    const movies = await api.getMovies();
     res.render("homepage", { movies });
 })
 
@@ -50,7 +50,7 @@ app.get("/movie", (req, res) => {
 })
 
 app.get("/movie/:movieId", async (req, res) => {
-    const movie = await getMovie(req.params.movieId);
+    const movie = await api.getMovie(req.params.movieId);
     if (movie) {
         res.render("movie", { movie });
     } else {
