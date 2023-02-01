@@ -6,10 +6,6 @@ import * as api from './api.js';
 
 const app = express();
 
-
-//console.log(await api.getReviews('?filters[movie]=1'))
-console.log(await api.getScreenings('?populate=movie&filters[movie]=1'))
-
 app.engine("handlebars", engine({
     helpers: {
         markdown: md => marked(md),
