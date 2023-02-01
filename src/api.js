@@ -14,20 +14,14 @@ export async function getMovie(id) {
     return content.data;
 }
 
-export default async function getData() {
-    const res = await fetch(APIData + "/movies");
+export async function getReviews(query = '') {
+    const res = await fetch(APIData + "/reviews" + query);
     const content = await res.json();
     return content.data;
 }
 
-export async function getReviews() {
-    const res = await fetch(APIData + "/reviews");
-    const content = await res.json();
-    return content.data;
-}
-
-export async function getScreenings() {
-    const res = await fetch(APIData + "/screenings");
+export async function getScreenings(query = '') {
+    const res = await fetch(APIData + "/screenings" + query);
     const content = await res.json();
     return content.data;
 }
