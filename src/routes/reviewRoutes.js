@@ -2,7 +2,7 @@ import express from "express";
 import * as api from "../api.js";
 const reviewRouter = express.Router();
 
-reviewRouter.post('/movies/:id/reviews', async (req, res) => {
+reviewRouter.post("/movies/:id/reviews", async (req, res) => {
     const id = req.params.id;
     const body = req.body;
     const movie = await api.getMovie(id);
@@ -10,6 +10,7 @@ reviewRouter.post('/movies/:id/reviews', async (req, res) => {
         ...body,
         movie: movie,
     }
+    console.log(review);
     //api.postReview(review);
 });
 

@@ -2,9 +2,9 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
 import bodyParser from 'body-parser';
-import reviewRouter from './routes/reviewRoutes.js';
+import reviewRouter from "./routes/reviewRoutes.js";
 
-import * as api from './api.js';
+import * as api from "./api.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +17,7 @@ app.engine("handlebars", engine({
 app.set("view engine", "handlebars");
 app.set("views", "./handlebars-templates");
 
-app.use('/api', reviewRouter);
+app.use("/api", reviewRouter);
 
 app.get("/", async (req, res) => {
     const movies = await api.getMovies();
