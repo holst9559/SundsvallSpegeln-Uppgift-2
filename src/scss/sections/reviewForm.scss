@@ -1,6 +1,6 @@
 .review-form {
     display: none;
-
+    padding: 1em;
     background-color: $container-color;
 
     &.show {
@@ -11,26 +11,51 @@
         font-size: .7rem;
     }
 
-    .stars {
-        display: flex;
-        gap: .2em;
+    .rating {
+        float: left;
     }
 
-    .star {
-        content: url('/static/assets/star-regular.svg');
-        width: 20px;
+    .rating:not(:checked)>input {
+        display: none;
+    }
 
-        &.solid {
-            content: url('/static/assets/star-solid.svg');
-        }
+    .rating:not(:checked)>label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: #ccc;
+    }
 
-        &.half {
-            content: url('/static/assets/star-half-stroke-regular.svg');
-        }
+    .rating:not(:checked)>label:before {
+        content: '★ ';
+    }
 
-        &:hover {
-            background-color: blue;
-        }
+    .rating>input:checked~label {
+        color: #ffc700;
+    }
+
+    .rating:not(:checked)>label:hover,
+    .rating:not(:checked)>label:hover~label {
+        color: #deb217;
+    }
+
+    .rating>input:checked+label:hover,
+    .rating>input:checked+label:hover~label,
+    .rating>input:checked~label:hover,
+    .rating>input:checked~label:hover~label,
+    .rating>label:hover~input:checked~label {
+        color: #c59b08;
+    }
+
+    button {
+        display: block;
     }
 }
 
+svg {
+    stroke-width: 5;
+    fill: #F6831D;
+}

@@ -13,34 +13,28 @@
 
   <button class="review-form-toggle" id="review-form-toggle">Add Review</button>
   
-  <form class="review-form show" name="review-form" action="">
+  <form class="review-form show" name="review-form">
     <h2>Din Recension</h2>
   
-    <section class="review-rating">
       <h3>Ditt Betyg</h3>
-      <ul class="stars">
-        <li class="star solid"></li>
-        <li class="star half"></li>
-        <li class="star"></li>
-        <li class="star"></li>
-        <li class="star"></li>
-        <li class="star"></li>
-        <li class="star"></li>
-        <li class="star"></li>
-        <li class="star"></li>
-        <li class="star"></li>
-      </ul>
-    </section>
+      <div class="rating">
+        <input type="radio" id="star1" name="rating" value="5" />
+        <label for="star1" title="1 stars"></label>
+        <input type="radio" id="star2" name="rating" value="4" />
+        <label for="star2" title="2 stars"></label>
+        <input type="radio" id="star3" name="rating" value="3" />
+        <label for="star3" title="3 stars"></label>
+        <input type="radio" id="star4" name="rating" value="2" />
+        <label for="star4" title="4 stars"></label>
+        <input type="radio" id="star5" name="rating" value="1" />
+        <label for="star5" title="5 star"></label>
+      </div>
   
-    <section class="review-details">
       <h3>Ditt namn</h3>
-      <input type="text" class="review-form__author" placeholder="Skriv ditt namn här">
-    </section>
-  
-    <section class="review-comment">
-      <textarea class="review-form__comment" name="review-comment" placeholder="Skriv din kommentar här (valfri)" cols="30" rows="10"></textarea>
+      <input type="text" class="review-form__author" name="author" placeholder="Skriv ditt namn här">
+      
+      <textarea class="review-form__comment" name="comment" placeholder="Skriv din kommentar här (valfri)" cols="30" rows="10"></textarea>
       <small>Max antal tecken: 600</small>
-    </section>
 
     <button type="submit">Submit</button>
   </form>

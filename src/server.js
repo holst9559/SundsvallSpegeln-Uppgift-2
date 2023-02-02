@@ -1,11 +1,13 @@
 import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
+import bodyParser from 'body-parser';
+import reviewRouter from './routes/reviewRoutes.js';
 
 import * as api from './api.js';
 
 const app = express();
-
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.engine("handlebars", engine({
     helpers: {
@@ -14,6 +16,8 @@ app.engine("handlebars", engine({
 }));
 app.set("view engine", "handlebars");
 app.set("views", "./handlebars-templates");
+
+app.use('/api', reviewRouter);
 
 app.get("/", async (req, res) => {
     const movies = await api.getMovies();
@@ -45,11 +49,11 @@ app.get("/tickets", (req, res) => {
     res.render("contact");
 })
 
-app.get("/movie", (req, res) => {
+app.get("/movies", (req, res) => {
     res.render("movie");
 })
 
-app.get("/movie/:movieId", async (req, res) => {
+app.get("/movies/:movieId", async (req, res) => {
     const movie = await api.getMovie(req.params.movieId);
     if (movie) {
         res.render("movie", { movie });

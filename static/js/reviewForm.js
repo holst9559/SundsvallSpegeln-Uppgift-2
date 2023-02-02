@@ -3,7 +3,19 @@ export default function handleReviewForm() {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        //Send form to server using fetch here
+        //POST form to server using fetch here
+        const data = new URLSearchParams(new FormData(form));
+        const currentPath = window.location.pathname;
+        fetch("/api" + currentPath  + '/reviews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',  
+                'token': 123
+            },
+            body: data,
+        });
+
+        form.reset();
     });
 }
 
