@@ -10,7 +10,6 @@ reviewRouter.post("/movies/:id/reviews", async (req, res) => {
         ...body,
         movie: movie,
     }
-    console.log(review);
     //api.postReview(review);
 });
 

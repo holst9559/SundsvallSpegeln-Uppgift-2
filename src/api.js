@@ -39,8 +39,8 @@ export async function postReview(review, verified = false) {
         })
     });
 
-    const resData = await res.json();
-    return resData;
+    const data = await res.json();
+    return data;
 }
 
 export async function getScreenings(query = "") {
