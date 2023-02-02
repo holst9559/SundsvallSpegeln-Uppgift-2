@@ -24,6 +24,11 @@ app.get("/homepage", async (req, res) => {
     res.render("homepage", { movies });
 })
 
+app.get("/api/upcoming-screenings", async (req, res) => {
+    const data = await api.getScreenings(req.query);
+    res.json(data);
+})
+
 app.get("/about", (req, res) => {
     res.render("about");
 })
