@@ -16,4 +16,13 @@ async function screeningTrigger() {
         li.append(para);
     }
 
+    //Event listner to open selected movie
+    //Not yet functional with correct screening
+    ul.addEventListener("click", (e) => {
+        for (let i = 0; i < content.length; i++) {
+            if (e.target.innerText.includes(content[i].attributes.movie.data.attributes.title)){
+                window.location = "/movie/" + content[i].attributes.movie.data.id;
+            }
+        }
+    });
 }
