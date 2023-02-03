@@ -2,7 +2,6 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
 import bodyParser from 'body-parser';
-import reviewRouter from "./routes/reviewRoutes.js";
 
 import * as api from "./api.js";
 
@@ -16,8 +15,6 @@ app.engine("handlebars", engine({
 }));
 app.set("view engine", "handlebars");
 app.set("views", "./handlebars-templates");
-
-app.use("/api", reviewRouter);
 
 app.get("/", async (req, res) => {
     const movies = await api.getMovies();
@@ -61,6 +58,17 @@ app.get("/movies/:movieId", async (req, res) => {
         res.status(404).render("404");
     }
 })
+
+app.post("api/movies/:id/reviews", async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    const movie = await api.getMovie(id);
+    const review = {
+        movie: movie,
+        ...body,
+    }
+    //api.postReview(review);
+});
 
 app.use("/static", express.static("./static"));
 
