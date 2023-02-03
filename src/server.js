@@ -1,7 +1,7 @@
 import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
-import bodyParser from 'body-parser';
+import bodyParser from "body-parser";
 
 import * as api from "./api.js";
 
