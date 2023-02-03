@@ -1,0 +1,31 @@
+.screening-times {
+    background-color: $container-color;
+    border-radius: 5px;
+    margin: 0 auto;
+    
+    h2{
+        text-align: center;
+        font-size: 30px;
+        padding-top: 20px;
+        margin: 0;
+    }
+
+    ul{
+        background-color: $container-color;
+        border-radius: 5px;
+        margin: 0;
+
+        li {
+            background-color: $button-color;
+            border: 3px outset $background-color;
+            border-radius: 5px;
+            height: 2vh;
+            margin: 0.2em;
+
+            a:hover {
+                cursor: pointer;
+                filter: brightness(150%);
+            }
+        }
+    }
+}
