@@ -16,19 +16,16 @@
         margin: 0;
 
         li {
+            background-color: $button-color;
             border: 3px outset $background-color;
             border-radius: 5px;
             height: 2vh;
             margin: 0.2em;
-            
-        }
-        
-        li:hover {
-            border: 3px inset $text-color;
-            cursor: pointer;
-            color: $background-color;
-            background-color: $text-color;
-        }
 
+            a:hover {
+                cursor: pointer;
+                filter: brightness(150%);
+            }
+        }
     }
 }

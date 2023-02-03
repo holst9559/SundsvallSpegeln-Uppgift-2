@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { screeningsShortFilter } from "./serverFilters/screeningsShort.js";
 
 const APIData = "https://plankton-app-xhkom.ondigitalocean.app/api"
 
@@ -22,39 +23,11 @@ export async function getReviews(query = '') {
 
 export async function getScreenings(query = '') {
     const res = await fetch(APIData + "/screenings?populate=movie");
+
     //Query string ?filters=short. Get screenings the comming 5 days, max 10 screenings.
-    if (query.filters === "short" || query === "/homepage") {
-        const content = await res.json();
-        let data = content.data;
-        let screeningArray = [];
-        let filteredArray = [];
-        let shortArray = [];
-
-        const todaysDate = new Date().toISOString();
-        const fiveDays = new Date();
-
-        fiveDays.setDate(new Date().getDate() + 4);
-
-        const fiveDaysFilter = fiveDays.toISOString();
-
-        for (let i = 0; i < data.length; i++) {
-            screeningArray.push(data[i]);
-        }
-
-        filteredArray = screeningArray.filter(data => { 
-            return data.attributes.start_time > todaysDate
-             && data.attributes.start_time < fiveDaysFilter
-        });
-
-        for (let j = 0; j < filteredArray.length; j++) {
-            if (shortArray.length <= 9 ) {
-                shortArray.push(filteredArray[j]);
-            }
-            else {
-                break;
-            }
-        }
-        return shortArray;
+    if (query.filters === "short") {
+        const filter = await screeningsShortFilter(res);
+        return filter
     }
     else {
         const content = await res.json();
