@@ -7,8 +7,8 @@ reviewRouter.post("/movies/:id/reviews", async (req, res) => {
     const body = req.body;
     const movie = await api.getMovie(id);
     const review = {
-        ...body,
         movie: movie,
+        ...body,
     }
     //api.postReview(review);
 });
