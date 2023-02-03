@@ -1,10 +1,12 @@
 import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
+import bodyParser from "body-parser";
 
-import * as api from './api.js';
+import * as api from "./api.js";
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.engine("handlebars", engine({
     helpers: {
@@ -49,11 +51,11 @@ app.get("/tickets", (req, res) => {
     res.render("contact");
 })
 
-app.get("/movie", (req, res) => {
+app.get("/movies", (req, res) => {
     res.render("movie");
 })
 
-app.get("/movie/:movieId", async (req, res) => {
+app.get("/movies/:movieId", async (req, res) => {
     const movie = await api.getMovie(req.params.movieId);
     if (movie) {
         res.render("movie", { movie });
@@ -61,6 +63,23 @@ app.get("/movie/:movieId", async (req, res) => {
         res.status(404).render("404");
     }
 })
+
+app.post("/api/movies/:id/reviews", async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    const movie = await api.getMovie(id);
+    const review = {
+        movie: movie,
+        ...body,    
+    }
+    try {
+        await api.postReview(review);
+        res.status(200).end();
+    } catch (err) {
+        console.log(err);
+        res.status(500).end();
+    }
+});
 
 app.use("/static", express.static("./static"));
 

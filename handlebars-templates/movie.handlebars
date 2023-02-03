@@ -9,5 +9,41 @@
     <h1>{{movie.attributes.title}}</h1>
     <p>{{{ markdown movie.attributes.intro }}}</p>
   </div>
-  
+</div>
+
+<button class="toggle-review-form show" id="toggle-review-form"><i class="fa-solid fa-plus"></i> Review</button>
+
+<div class="modal-container">
+  <form class="review-form" name="review-form">
+    <h2>Din Recension för {{movie.attributes.title}}</h2>
+
+    <h3>Ditt Betyg</h3>
+    <div class="rating" id="rating">
+      <input type="radio" id="star5" name="rating" value="5" />
+      <label for="star5" title="5 stars"></label>
+      <input type="radio" id="star4" name="rating" value="4" />
+      <label for="star4" title="4 stars"></label>
+      <input type="radio" id="star3" name="rating" value="3" />
+      <label for="star3" title="3 stars"></label>
+      <input type="radio" id="star2" name="rating" value="2" />
+      <label for="star2" title="2 stars"></label>
+      <input type="radio" id="star1" name="rating" value="1" checked="checked"/>
+      <label for="star1" title="1 star"></label>
+
+      <small class="rating-indicator">1</small>
+    </div>
+
+    <input type="text" class="review-form__author" name="author" placeholder="Skriv ditt namn här" required>
+
+    <textarea 
+      class="review-form__comment" 
+      name="comment" 
+      maxlength="200" 
+      placeholder="Skriv din kommentar här (valfri)" 
+      cols="30"
+      rows="8"></textarea>
+    <small class="comment-length"></small>
+
+    <button type="submit">Submit</button>
+  </form>
 </div>

@@ -96,6 +96,12 @@ a {
 }
 
 button {
+    display: block;
+    margin: 1em 0;
+    border: none;
+    border-radius: 5px;
+    color: $text-color !important;
+    background-color: $button-color;
     cursor: pointer;
 
     &:hover {
