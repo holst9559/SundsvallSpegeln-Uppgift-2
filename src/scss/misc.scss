@@ -21,19 +21,20 @@
     margin-right: auto;
 }
 
-section{
+.content-right-now{
     @include centerColumn();
     @include direction(column);
     h2{
         text-align: center
     }
+    
     ul{
         @include wrap();
         @include centerContent();
         padding: 0px;
         margin: 0%;
         height: 100%;
-        width: 100%;
+        
         div{
             margin: 0.1%;
             border-radius: 4px;
@@ -80,16 +81,7 @@ section{
             }
         }
 }
-.visningstider{
-    background-color: $container-color;
-    border: .2em solid $background-color;
-    width: 90%;
-    margin: 4.5%;
-    h2{
-        text-align: center;
 
-    }
-}
 ul, menu {
     list-style: none;
 }
