@@ -22,6 +22,7 @@ export async function getReviews(query = '') {
 
 export async function getScreenings(query = '') {
     const res = await fetch(APIData + "/screenings?populate=movie");
+    //Query string ?filters=short. Get screenings the comming 5 days, max 10 screenings.
     if (query.filters === "short" || query === "/homepage") {
         const content = await res.json();
         let data = content.data;

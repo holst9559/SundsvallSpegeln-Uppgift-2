@@ -8,7 +8,12 @@ async function screeningTrigger() {
         const date = new Date(content[i].attributes.start_time);
         const dateString = date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB", { timeZone: "UTC" })
         
-        li.innerText = content[i].attributes.movie.data.attributes.title + " - " + dateString;
+        li.innerText = content[i].attributes.movie.data.attributes.title;// + " - " + ;
         ul.append(li);
+
+        const para = document.createElement("p");
+        para.innerText = dateString;
+        li.append(para);
     }
+
 }
