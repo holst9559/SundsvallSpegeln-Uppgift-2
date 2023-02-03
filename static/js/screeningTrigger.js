@@ -10,7 +10,7 @@ async function screeningTrigger() {
         const dateString = date.toLocaleDateString() + " " + date.toLocaleTimeString("en-GB", { timeZone: "UTC" })
         
         tag.innerText = content[i].attributes.movie.data.attributes.title;
-        tag.setAttribute("href", "/movie/" + content[i].attributes.movie.data.id);
+        tag.setAttribute("href", "/movies/" + content[i].attributes.movie.data.id);
         ul.append(li);
         li.append(tag);
 
