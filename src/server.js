@@ -64,6 +64,18 @@ app.get("/movies/:movieId", async (req, res) => {
     }
 })
 
+// get reviews
+ app.get("/api/movies/:id/reviews", async (req,res)=>{
+    try {
+        const reviews = await api.getReviews(req.params.id)
+        console.log('reviews',reviews)
+        res.status(200).send(reviews)
+        
+    } catch (error) {
+        console.log(error)
+    }
+ })
+
 app.post("/api/movies/:id/reviews", async (req, res) => {
     const id = req.params.id;
     const body = req.body;

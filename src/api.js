@@ -15,11 +15,25 @@ export async function getMovie(id) {
     return content.data;
 }
 
-export async function getReviews(query = "") {
-    const res = await fetch(APIData + "/reviews" + query);
-    const content = await res.json();
-    return content.data;
-}
+export async function getReviews(id) {
+    const res = await fetch(
+        APIDATA + `/movies/${id}/?populate=reviews`
+      );
+      const info = await res.json();
+      const reviewsData = info.data;
+      console.log(reviewsData);
+    
+     const reviewInfo = {
+        id: reviewsData.id,
+        title: reviewsData.attributes.title,
+        intro: reviewsData.attributes.intro,
+        image: reviewsData.attributes.image.url,
+        reviews: reviewsData.attributes.reviews,
+   
+      };
+      return reviewInfo
+    }
+
 
 export async function postReview(review, verified = false) {
     const res = await fetch(APIData + "/reviews", {
