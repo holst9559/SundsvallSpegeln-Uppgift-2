@@ -59,15 +59,21 @@ app.get("/movies/:movieId", async (req, res) => {
     }
 })
 
-app.post("api/movies/:id/reviews", async (req, res) => {
+app.post("/api/movies/:id/reviews", async (req, res) => {
     const id = req.params.id;
     const body = req.body;
     const movie = await api.getMovie(id);
     const review = {
         movie: movie,
-        ...body,
+        ...body,    
     }
-    //api.postReview(review);
+    try {
+        await api.postReview(review);
+        res.status(200).end();
+    } catch (err) {
+        console.log(err);
+        res.status(500).end();
+    }
 });
 
 app.use("/static", express.static("./static"));

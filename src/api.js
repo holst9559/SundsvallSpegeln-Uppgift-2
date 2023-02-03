@@ -26,7 +26,7 @@ export async function postReview(review, verified = false) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({
+        body: JSON.stringify({ 
             "data": {
                 "comment": review.comment,
                 "rating": review.rating,
@@ -39,8 +39,7 @@ export async function postReview(review, verified = false) {
         })
     });
 
-    const data = await res.json();
-    return data;
+    return res.json();
 }
 
 export async function getScreenings(query = "") {

@@ -11,10 +11,10 @@
   </div>
 </div>
 
-<section class="user-reviews">
-  <button class="toggle-review-form" id="toggle-review-form"><i class="fa-solid fa-plus"></i> Review</button>
+<button class="toggle-review-form" id="toggle-review-form"><i class="fa-solid fa-plus"></i> Review</button>
 
-  <form class="review-form show" name="review-form">
+<div class="modal-container show">
+  <form class="review-form" name="review-form">
     <h2>Din Recension för {{movie.attributes.title}}</h2>
 
     <h3>Ditt Betyg</h3>
@@ -29,6 +29,8 @@
       <label for="star2" title="2 stars"></label>
       <input type="radio" id="star1" name="rating" value="1" checked="checked"/>
       <label for="star1" title="1 star"></label>
+
+      <small class="rating-indicator">1</small>
     </div>
 
     <input type="text" class="review-form__author" name="author" placeholder="Skriv ditt namn här" required>
@@ -39,10 +41,9 @@
       maxlength="200" 
       placeholder="Skriv din kommentar här (valfri)" 
       cols="30"
-      rows="8">
-    </textarea>
+      rows="8"></textarea>
     <small class="comment-length"></small>
 
     <button type="submit">Submit</button>
   </form>
-</section>
+</div>

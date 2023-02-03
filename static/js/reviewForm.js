@@ -1,5 +1,15 @@
 export default function handleReviewForm() {
-    handleFormToggle();
+
+    const toggle = document.querySelector("#toggle-review-form");
+    toggle.addEventListener("click", () => {
+        showModal();
+    });
+
+    document.body.addEventListener("click", e => { //Hide modal when clicking outside of review-form
+        if (e.target.classList.contains("modal-container") && !e.target.classList.contains("toggle-review-form")) {
+            hideModal();
+        }
+    });
 
     const form = document.querySelector(".review-form");
     form.addEventListener("submit", async e => {
@@ -16,21 +26,26 @@ export default function handleReviewForm() {
             body: data,
         });
 
-        console.log(res.json());
-
         form.reset(); 
+        hideModal();
     });
 
     updateCommentIndicator();
+    updateRatingIndicator();
 }
 
-function handleFormToggle() {
+function showModal() {
+    const modal = document.querySelector(".modal-container");
     const toggle = document.querySelector("#toggle-review-form");
-    toggle.addEventListener('click', e => {
-        const form = document.querySelector(".review-form");
-        form.classList.toggle('show');
-        e.target.classList.toggle('show');
-    });
+    modal.classList.add("show");  
+    toggle.classList.remove("show");   
+}
+
+function hideModal() {
+    const modal = document.querySelector(".modal-container");
+    const toggle = document.querySelector("#toggle-review-form");
+    modal.classList.remove("show");  
+    toggle.classList.add("show");   
 }
 
 function updateCommentIndicator() {
@@ -43,4 +58,19 @@ function updateCommentIndicator() {
     });
 }
 
+function updateRatingIndicator() {
+    const rating = document.querySelector(".rating");
+    const indicator = document.querySelector(".rating-indicator");
+    const stars = document.querySelector('.rating').childNodes;
+    stars.forEach(star => {
+        if (star.checked) {
+            indicator.textContent = star.value;
+            return;
+        }
+    });
+
+    rating.addEventListener("change", e => {
+        indicator.textContent = e.target.value;
+    });
+}
 
