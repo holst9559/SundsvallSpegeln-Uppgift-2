@@ -25,8 +25,27 @@ function showReviewsOnDom(review) {
   let author = document.createElement("small");
   author.innerText = review.attributes.author;
 
-  let rating = document.createElement('p')
-  rating.innerText = review.attributes.rating
+  /* let rating = document.createElement('p')
+  rating.innerText = review.attributes.rating */
 
-  reviewsDiv.append(comment, author, rating);
+  const rating = document.createElement('ul');
+        rating.role = 'meter';
+        rating.ariaLabel = 'rating';
+        rating.ariaValueMin = 0;
+        rating.ariaValueMax = 5;
+        rating.ariaValueNow = review.attributes.rating;
+        rating.ariaValueText = `${review.attributes.rating} out of 5`;
+        rating.classList.add('rating');
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement('li');
+            star.classList.add('rating-star');
+
+            if (i <= review.attributes.rating) {
+                star.classList.add('active');
+            }
+
+            rating.append(star);
+        }
+
+    reviewsDiv.append(comment, author, rating);
 }
