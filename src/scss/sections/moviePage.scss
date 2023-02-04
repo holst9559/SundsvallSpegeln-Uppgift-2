@@ -77,6 +77,10 @@ button {
 .reviews-btn button {
   margin-right: 0.2rem;
 }
+
+.active-btn {
+ background-color: rgb(41, 8, 8);
+}
 @media (max-width: $bp-medium) {
   .movie-container {
     display: block;

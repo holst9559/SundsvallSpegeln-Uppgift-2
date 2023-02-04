@@ -1,14 +1,36 @@
 let reviewsDiv = document.querySelector(".reviews");
+const btnContainer = document.querySelector(".reviews-btn");
+
+let index = 0;
+let pages = [];
+
+function setUpUi() {
+  showReviewsOnDom(pages[index]);
+  displayButtons(btnContainer, pages, index);
+}
+
+function displayButtons(container, pages, activeIndex) {
+  let btns = pages.map((_, pageIndex) => {
+    return `<button class = "page-btn ${
+      activeIndex === pageIndex ? "active-btn" : "null"
+    }" data-index = '${pageIndex}'>${pageIndex + 1}</button>`;
+  });
+  btns.push('<button class="next-btn">next</button>');
+  btns.unshift('<button class="prev-btn">prev</button>');
+
+  container.innerHTML = btns.join("");
+}
 
 export default async function getReviews() {
   const currentPath = window.location.pathname;
   const res = await fetch("/api" + currentPath + "/reviews/");
   const reviews = await res.json();
   console.log("reviews", reviews);
-  const pages = paginate(reviews.attributes.reviews.data);
+  pages = paginate(reviews.attributes.reviews.data);
+  setUpUi();
   console.log("pages", pages);
   //return showReviewsOnDom(reviews);
-  showReviewsOnDom(paginate(reviews.attributes.reviews.data)[0]);
+  //showReviewsOnDom(paginate(reviews.attributes.reviews.data)[0]);
 }
 
 function showReviewsOnDom(reviews) {
