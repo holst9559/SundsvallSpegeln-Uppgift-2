@@ -55,6 +55,8 @@ app.get("/movies", (req, res) => {
     res.render("movie");
 })
 
+
+
 app.get("/movies/:movieId", async (req, res) => {
     const movie = await api.getMovie(req.params.movieId);
     if (movie) {
