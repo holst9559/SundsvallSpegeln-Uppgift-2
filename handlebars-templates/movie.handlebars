@@ -1,21 +1,20 @@
 <div class="movie-container">
   <div class="images-parent">
     <div class="img-container">
-      <img src="{{movie.attributes.image.url}}"/>
+      <img src="{{movie.attributes.image.url}}" />
     </div>
   </div>
 
   <div class="text-container">
     <h1>{{movie.attributes.title}}</h1>
-    <p>{{{ markdown movie.attributes.intro }}}</p>
+    <p>{{{markdown movie.attributes.intro}}}</p>
   </div>
 </div>
 
-<div class="reviews">
-  
-</div>
-
-<button class="toggle-review-form show" id="toggle-review-form"><i class="fa-solid fa-plus"></i> Review</button>
+<button class="toggle-review-form show" id="toggle-review-form"><i
+    class="fa-solid fa-plus"
+  ></i>
+  Review</button>
 
 <div class="modal-container">
   <form class="review-form" name="review-form">
@@ -31,23 +30,44 @@
       <label for="star3" title="3 stars"></label>
       <input type="radio" id="star2" name="rating" value="2" />
       <label for="star2" title="2 stars"></label>
-      <input type="radio" id="star1" name="rating" value="1" checked="checked"/>
+      <input
+        type="radio"
+        id="star1"
+        name="rating"
+        value="1"
+        checked="checked"
+      />
       <label for="star1" title="1 star"></label>
 
       <small class="rating-indicator">1</small>
     </div>
 
-    <input type="text" class="review-form__author" name="author" placeholder="Skriv ditt namn här" required>
+    <input
+      type="text"
+      class="review-form__author"
+      name="author"
+      placeholder="Skriv ditt namn här"
+      required
+    />
 
-    <textarea 
-      class="review-form__comment" 
-      name="comment" 
-      maxlength="200" 
-      placeholder="Skriv din kommentar här (valfri)" 
+    <textarea
+      class="review-form__comment"
+      name="comment"
+      maxlength="200"
+      placeholder="Skriv din kommentar här (valfri)"
       cols="30"
-      rows="8"></textarea>
+      rows="8"
+    ></textarea>
     <small class="comment-length"></small>
 
     <button type="submit">Submit</button>
   </form>
+
+</div>
+<div class="reviews-container">
+  <div class="reviews"></div>
+  <div class ="reviews-btn">
+    <button class="prev">prev</button>
+    <button class="next">next</button>
+  </div>
 </div>

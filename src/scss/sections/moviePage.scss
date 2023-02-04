@@ -70,6 +70,13 @@ button {
   background-image: url(../../../static/assets/star-active.png);
 }
 
+.reviews-btn {
+  display: flex;
+}
+
+.reviews-btn button {
+  margin-right: 0.2rem;
+}
 @media (max-width: $bp-medium) {
   .movie-container {
     display: block;
