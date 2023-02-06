@@ -4,56 +4,17 @@ const btnContainer = document.querySelector(".reviews-btn");
 let index = 0;
 let pages = [];
 
-function setUpUi() {
-  showReviewsOnDom(pages[index]);
-  displayButtons(btnContainer, pages, index);
-}
-
-function displayButtons(container, pages, activeIndex) {
-  let btns = pages.map((_, pageIndex) => {
-    return `<button class = "page-btn ${
-      activeIndex === pageIndex ? "active-btn" : "null"
-    }" data-index = "${pageIndex}">${pageIndex + 1}</button>`;
-  });
-  btns.push('<button class="next-btn">next</button>');
-  btns.unshift('<button class="prev-btn">prev</button>');
-
-  container.innerHTML = btns.join("");
-}
-
-btnContainer.addEventListener("click", function (e) {
-  if (e.target.classList.contains("reviews-btn")) return;
-  if (e.target.classList.contains("page-btn")) {
-    index = parseInt(e.target.dataset.index);
-  }
-  if (e.target.classList.contains("next-btn")) {
-    index++;
-    if (index > pages.length - 1) {
-      index = 0;
-    }
-  }
-
-  if (e.target.classList.contains("prev-btn")) {
-    index--;
-    console.log("previndex", index);
-    if (index < 0) {
-      index = pages;
-    }
-  }
-  setUpUi();
-});
-
+// get reviews function
 export default async function getReviews() {
   const currentPath = window.location.pathname;
   const res = await fetch("/api" + currentPath + "/reviews/");
   const reviews = await res.json();
-  console.log("reviews", reviews);
   pages = paginate(reviews.attributes.reviews.data);
   setUpUi();
   console.log("pages", pages);
-  //return showReviewsOnDom(reviews);
-  //showReviewsOnDom(paginate(reviews.attributes.reviews.data)[0]);
 }
+
+// display reviews on the dom
 
 function showReviewsOnDom(reviews) {
   reviews.map((review) => {
@@ -91,6 +52,7 @@ function showReviewsOnDom(reviews) {
   });
 }
 
+// pagination function
 function paginate(reviews) {
   console.log("paginatereviews", reviews);
 
@@ -103,3 +65,43 @@ function paginate(reviews) {
 
   return newReviews;
 }
+
+function setUpUi() {
+  showReviewsOnDom(pages[index]);
+  displayButtons(btnContainer, pages, index);
+}
+
+// show pagination buttons
+function displayButtons(container, pages, activeIndex) {
+  let btns = pages.map((_, pageIndex) => {
+    return `<button class = "page-btn ${
+      activeIndex === pageIndex ? "active-btn" : "null"
+    }" data-index = "${pageIndex}">${pageIndex + 1}</button>`;
+  });
+  btns.push('<button class="next-btn">next</button>');
+  btns.unshift('<button class="prev-btn">prev</button>');
+
+  container.innerHTML = btns.join("");
+}
+
+btnContainer.addEventListener("click", function (e) {
+  if (e.target.classList.contains("reviews-btn")) return;
+  if (e.target.classList.contains("page-btn")) {
+    index = parseInt(e.target.dataset.index);
+  }
+  if (e.target.classList.contains("next-btn")) {
+    index++;
+    if (index > pages.length - 1) {
+      index = 0;
+    }
+  }
+
+  if (e.target.classList.contains("prev-btn")) {
+    index--;
+    console.log("previndex", index);
+    if (index < 0) {
+      index = pages;
+    }
+  }
+  setUpUi();
+});
