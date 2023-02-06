@@ -21,14 +21,6 @@ export async function getReviews(id) {
   const reviewsData = info.data;
   return reviewsData;
 
-  /* const reviewInfo = {
-    id: reviewsData.id,
-    title: reviewsData.attributes.title,
-    intro: reviewsData.attributes.intro,
-    image: reviewsData.attributes.image.url,
-    reviews: reviewsData.attributes.reviews,
-  };
-  return reviewInfo; */
 }
 
 export async function postReview(review, verified = false) {

@@ -11,46 +11,114 @@ export default async function getReviews() {
   const reviews = await res.json();
   pages = paginate(reviews.attributes.reviews.data);
   setUpUi();
+
   console.log("pages", pages);
 }
 
 // display reviews on the dom
 
 function showReviewsOnDom(reviews) {
-  reviews.map((review) => {
-    let list = document.createElement("li");
-    let comment = document.createElement("p");
-    comment.innerText = review.attributes.comment;
+  const newReviews = reviews
+    .map((review) => {
+      let list = document.createElement("li");
 
-    let authorDiv = document.createElement("div");
-    authorDiv.classList.add("author");
+      let allInfo = document.createElement("div");
+      allInfo.classList.add("all-info");
+      let comment = document.createElement("p");
+      comment.innerText = review.attributes.comment;
 
-    let author = document.createElement("small");
-    author.innerText = review.attributes.author;
+      let authorDiv = document.createElement("div");
+      authorDiv.classList.add("author");
 
-    const rating = document.createElement("ul");
-    rating.role = "meter";
-    rating.ariaLabel = "rating";
-    rating.ariaValueMin = 0;
-    rating.ariaValueMax = 5;
-    rating.ariaValueNow = review.attributes.rating;
-    rating.ariaValueText = `${review.attributes.rating} out of 5`;
-    rating.classList.add("rating");
-    for (let i = 1; i <= 5; i++) {
-      const star = document.createElement("li");
-      star.classList.add("rating-star");
+      let author = document.createElement("small");
+      author.innerText = review.attributes.author;
 
-      if (i <= review.attributes.rating) {
-        star.classList.add("active");
+      const rating = document.createElement("ul");
+      rating.role = "meter";
+      rating.ariaLabel = "rating";
+      rating.ariaValueMin = 0;
+      rating.ariaValueMax = 5;
+      rating.ariaValueNow = review.attributes.rating;
+      rating.ariaValueText = `${review.attributes.rating} out of 5`;
+      rating.classList.add("rating");
+      for (let i = 1; i <= 5; i++) {
+        const star = document.createElement("li");
+        star.classList.add("rating-star");
+
+        if (i <= review.attributes.rating) {
+          star.classList.add("active");
+        }
+
+        rating.append(star);
       }
 
-      rating.append(star);
-    }
-    authorDiv.append(author, rating);
-    list.append(authorDiv, comment);
-    reviewsDiv.appendChild(list);
-  });
+      authorDiv.append(author, rating);
+      allInfo.append(authorDiv, comment);
+      list.append(allInfo);
+      //reviewsDiv.appendChild(list);
+
+      return list.innerHTML;
+    })
+    .join("");
+  console.log("newReviews", newReviews);
+
+  reviewsDiv.innerHTML = newReviews;
 }
+
+/* function showReviewsOnDom(reviews) {
+  const newReviews = reviews
+    .map((review) => {
+      return `
+  <ul>
+  <li>
+  <p>${review.attributes.comment}</p>
+  <div class = 'author'>
+  <small>${review.attributes.author}</small>
+  <ul  
+  class = 'rating'
+  role="meter"
+  class="rating"
+  aria-label='rating'
+  arial-valuemin="0"
+  aria-valuemax="5"
+  aria-valuenow=${review.attributes.rating}
+  aria-valuetext= ${review.attributes.rating} out of 5
+  >
+  <li class="rating-star"></li>
+  <li class="rating-star"></li>
+  <li class="rating-star "></li>
+  <li class="rating-star "></li>
+  <li class="rating-star "></li>
+ 
+  </ul>
+  </div>
+
+  </li>
+  </ul>
+
+    `;
+    })
+    .join("");
+
+  reviewsDiv.innerHTML = newReviews;
+}
+
+// set star rating
+
+function setRating(review) {
+  const rating = document.querySelector(".rating");
+  console.log("review", review);
+  for (let i = 1; i <= 5; i++) {
+    const star = document.createElement("li");
+    star.classList.add("rating-star");
+
+    if (i <= review.attributes.rating) {
+      star.classList.add("active");
+
+      return rating.append(star);
+    }
+  }
+} */
 
 // pagination function
 function paginate(reviews) {
@@ -100,8 +168,9 @@ btnContainer.addEventListener("click", function (e) {
     index--;
     console.log("previndex", index);
     if (index < 0) {
-      index = pages;
+      index = pages.length - 1;
     }
   }
+
   setUpUi();
 });

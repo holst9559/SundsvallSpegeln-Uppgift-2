@@ -56,12 +56,12 @@ button {
 
 .rating {
   display: flex;
-  gap: 0.2em;
+  gap: 0.1rem;
 }
 .rating .rating-star {
   list-style-type: none;
   width: 23px;
-  height: 26px;
+  height: 20px;
   background-image: url(../../../static/assets/star-inactive.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -74,13 +74,11 @@ button {
   background-color: #fff;
   h1 {
     text-align: center;
-    padding-top: 0.9rem; 
-    
+    padding-top: 0.9rem;
   }
 
-  .reviews li {
-    /* background-color: rgb(236, 227, 227); */
-    background-color: $container-color;
+  .all-info {
+    background-color: $container-color ;
     margin: 1rem auto;
     padding: 0.2rem;
   }
