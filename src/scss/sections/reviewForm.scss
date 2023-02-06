@@ -26,6 +26,7 @@
     max-width: 400px;
     border: 2px solid rgba(black, .4);
     background-color: $container-color;
+    box-sizing: border-box;
   
     h2 {
         text-align: left;
@@ -109,6 +110,11 @@
         position: absolute;
         top: .6em;
         right: 0;
+    }
+
+    .error-message {
+        color: rgb(200, 43, 43);
+        font-size: 1rem;
     }
 }
 

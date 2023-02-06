@@ -26,8 +26,16 @@ export default function handleReviewForm() {
             body: data,
         });
 
-        form.reset(); 
-        hideModal();
+        const content = await res.json();
+        const status = content.status;
+
+        if (status.code === 200) {
+            form.reset(); 
+            showMessage("");
+            hideModal();
+        } else {
+            showMessage(status.message);
+        }
     });
 
     updateCommentIndicator();
@@ -72,5 +80,9 @@ function updateRatingIndicator() {
     rating.addEventListener("change", e => {
         indicator.textContent = e.target.value;
     });
+}
+
+function showMessage(message) {
+    document.querySelector('#error-message').textContent = message;
 }
 

@@ -17,6 +17,7 @@ app.engine("handlebars", engine({
 app.set("view engine", "handlebars");
 app.set("views", "./handlebars-templates");
 
+
 app.get("/", async (req, res) => {
     const movies = await api.getMovies();
     res.render("homepage", { movies });
@@ -75,8 +76,7 @@ app.post("/api/movies/:id/reviews", async (req, res) => {
     }
 
     const status = validateReview(review);
-    console.log(status);
-    res.status(status.code).send(status.message);
+    res.status(status.code).send({ status: status });
     /*if (status.isValid) {
         try {
             await api.postReview(review);

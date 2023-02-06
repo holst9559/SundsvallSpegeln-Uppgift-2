@@ -1,30 +1,30 @@
 export default function validateReview(review) {
     const MIN_NAME_LENGTH = 3;
-    const MIN_COMMENT_LENGTH = 10;
+    const MAX_COMMENT_LENGTH = 200;
     console.log(review.author.length);
 
     const rating = parseInt(review.rating);
     if (isNaN(rating) || rating < 0 || rating > 5) {
         return {
             isValid: false,
-            code: 401,
-            message: "Invalid rating"
+            code: 403, //Forbidden
+            message: "Felaktigt betyg"
         };
     }
 
     if (review.author.length < MIN_NAME_LENGTH) {
         return {
             isValid: false,
-            code: 401,
-            message: `Name has to be atleast ${MIN_NAME_LENGTH} characters long`
+            code: 403,
+            message: `Namn måste vara minst ${MIN_NAME_LENGTH} karaktärer lång`
         }
     }
 
-    if (review.comment.length < MIN_COMMENT_LENGTH) {
+    if (review.comment.length > MAX_COMMENT_LENGTH) {
         return {
             isValid: false,
-            code: 401,
-            message: `Comment has to be atleast ${MIN_COMMENT_LENGTH} characters long`
+            code: 403,
+            message: `Kommentaren är för lång`
         }
     }
 
@@ -32,21 +32,21 @@ export default function validateReview(review) {
     if (hasProfanity) {
         return {
             isValid: false,
-            code: 401,
-            message: "Cannot contain profanity"
+            code: 403,
+            message: "Kan inte innehålla svordomar"
         }
     }
 
     return {
         isValid: true,
         code: 200,
-        message: "Review is validated"
+        message: "Lyckad Validation"
     }
 }
 
 function checkProfanity(arr) {
     const profanities = [
-        "järnspikar", "attans", "nedrans", "milda matilda", "herregud", "jösses", "jesus amalia"
+        "järnspikar", "attans", "nedrans", "milda matilda", "herregud", "jösses", "jesus amalia", "fan", "jävlar", "jävla"
     ];
 
     return arr.some(str => {
