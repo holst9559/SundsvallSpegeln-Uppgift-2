@@ -7,7 +7,7 @@ export default function validateReview(review) {
     if (isNaN(rating) || rating < 0 || rating > 5) {
         return {
             isValid: false,
-            code: 500,
+            code: 401,
             message: "Invalid rating"
         };
     }
@@ -15,7 +15,7 @@ export default function validateReview(review) {
     if (review.author.length < MIN_NAME_LENGTH) {
         return {
             isValid: false,
-            code: 500,
+            code: 401,
             message: `Name has to be atleast ${MIN_NAME_LENGTH} characters long`
         }
     }
@@ -23,7 +23,7 @@ export default function validateReview(review) {
     if (review.comment.length < MIN_COMMENT_LENGTH) {
         return {
             isValid: false,
-            code: 500,
+            code: 401,
             message: `Comment has to be atleast ${MIN_COMMENT_LENGTH} characters long`
         }
     }
@@ -32,7 +32,7 @@ export default function validateReview(review) {
     if (hasProfanity) {
         return {
             isValid: false,
-            code: 500,
+            code: 401,
             message: "Cannot contain profanity"
         }
     }
@@ -45,7 +45,13 @@ export default function validateReview(review) {
 }
 
 function checkProfanity(arr) {
+    const profanities = [
+        "järnspikar", "attans", "nedrans", "milda matilda", "herregud", "jösses", "jesus amalia"
+    ];
 
-    return true;
+    return arr.some(str => {
+        const lowercaseStr = str.toLowerCase().replace(/\s/g, "");
+        return profanities.some(p => lowercaseStr.includes(p));
+    });
 }
 
