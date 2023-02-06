@@ -65,61 +65,6 @@ function showReviewsOnDom(reviews) {
   reviewsDiv.innerHTML = newReviews;
 }
 
-/* function showReviewsOnDom(reviews) {
-  const newReviews = reviews
-    .map((review) => {
-      return `
-  <ul>
-  <li>
-  <p>${review.attributes.comment}</p>
-  <div class = 'author'>
-  <small>${review.attributes.author}</small>
-  <ul  
-  class = 'rating'
-  role="meter"
-  class="rating"
-  aria-label='rating'
-  arial-valuemin="0"
-  aria-valuemax="5"
-  aria-valuenow=${review.attributes.rating}
-  aria-valuetext= ${review.attributes.rating} out of 5
-  >
-  <li class="rating-star"></li>
-  <li class="rating-star"></li>
-  <li class="rating-star "></li>
-  <li class="rating-star "></li>
-  <li class="rating-star "></li>
- 
-  </ul>
-  </div>
-
-  </li>
-  </ul>
-
-    `;
-    })
-    .join("");
-
-  reviewsDiv.innerHTML = newReviews;
-}
-
-// set star rating
-
-function setRating(review) {
-  const rating = document.querySelector(".rating");
-  console.log("review", review);
-  for (let i = 1; i <= 5; i++) {
-    const star = document.createElement("li");
-    star.classList.add("rating-star");
-
-    if (i <= review.attributes.rating) {
-      star.classList.add("active");
-
-      return rating.append(star);
-    }
-  }
-} */
-
 // pagination function
 function paginate(reviews) {
   console.log("paginatereviews", reviews);
