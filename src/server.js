@@ -2,6 +2,7 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
 import bodyParser from "body-parser";
+import validateReview from "./serverFilters/reviewValidation.js";
 
 import * as api from "./api.js";
 
@@ -72,13 +73,21 @@ app.post("/api/movies/:id/reviews", async (req, res) => {
         movie: movie,
         ...body,    
     }
-    try {
-        await api.postReview(review);
-        res.status(200).end();
-    } catch (err) {
-        console.log(err);
-        res.status(500).end();
-    }
+
+    const status = validateReview(review);
+    console.log(status);
+    res.status(status.code).send(status.message);
+    /*if (status.isValid) {
+        try {
+            await api.postReview(review);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(500).end();
+        }
+    } else {
+        res.status(status.code).send(status.message);
+    }*/
 });
 
 app.use("/static", express.static("./static"));
