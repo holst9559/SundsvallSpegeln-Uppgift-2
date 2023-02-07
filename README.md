@@ -74,8 +74,15 @@ MÖTE 2023-01-31
 
 
 MÖTE 2023-02-03
-- Stämt av hur alla ligger till, svarat på frågot som dykt upp
+- Stämt av hur alla ligger till, svarat på frågor som dykt upp
 - Disskuterat hur vissa moment ska utföras, se till så att alla är med på hur det ska utföras
 - Alla fortsätter jobba på med sina kort från backloggen
 
 - Nästa möte tisdag 2023-02-07 10:00
+
+MÖTE 2023-02-07
+- Stämt av hur alla ligger till, svarat på frågot som dykt upp
+- Alla jobbar på med sina Trellokort, fortsätter med samhörande Unit Tests för de kort som är klara
+- Bestämde nytt möte på fredag 2023-02-10 för att stämma av vad som är kvar att göra, om det är något.
+
+-Nästa möte fredag 2023-02-10 
