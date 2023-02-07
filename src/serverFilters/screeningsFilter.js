@@ -1,5 +1,7 @@
-export async function screeningsShortFilter(res) {
+export async function screeningsFilter(res, end_time, items) {
   const content = await res.json();
+  const endTime = end_time - 1;
+  const item = items - 1;
   let data = content.data;
   let screeningArray = [];
   let filteredArray = [];
@@ -8,8 +10,8 @@ export async function screeningsShortFilter(res) {
   const todaysDate = new Date().toISOString();
   const fiveDays = new Date();
 
-  fiveDays.setDate(new Date().getDate() + 4);
- 
+  fiveDays.setDate(new Date().getDate() + endTime);
+
   const fiveDaysFilter = fiveDays.toISOString();
 
   const fiveDate = fiveDaysFilter.split("T")[0];
@@ -27,7 +29,7 @@ export async function screeningsShortFilter(res) {
   });
 
   for (let j = 0; j < filteredArray.length; j++) {
-    if (shortArray.length <= 9) {
+    if (shortArray.length <= item) {
       shortArray.push(filteredArray[j]);
     } else {
       break;
