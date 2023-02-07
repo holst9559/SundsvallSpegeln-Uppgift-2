@@ -61,7 +61,7 @@ export default function validateReview(review) {
 
 function checkProfanity(arr) {
     const profanities = [
-        "järnspikar", "attans", "nedrans", "milda matilda", "herregud", "jösses", "jesus amalia", "fan", "jävlar", "jävla"
+        "järnspikar", "attans", "nedrans", "mildamatilda", "herregud", "jösses", "jesusamalia", "fan", "jävlar", "jävla"
     ];
 
     return arr.some(str => {
