@@ -1,57 +1,57 @@
 import fetch from "node-fetch";
-import { screeningsFilter } from "./serverFilters/screeningsFilter.js";
+import screeningsFilter from "./serverFilters/screeningsFilter.js";
 
 const APIData = "https://plankton-app-xhkom.ondigitalocean.app/api";
 
 export async function getMovies() {
-    const res = await fetch(APIData + "/movies");
-    const content = await res.json();
-    return content.data;
+  const res = await fetch(APIData + "/movies");
+  const content = await res.json();
+  return content.data;
 }
 
 export async function getMovie(id) {
-    const res = await fetch(APIData + "/movies/" + id);
-    const content = await res.json();
-    return content.data;
+  const res = await fetch(APIData + "/movies/" + id);
+  const content = await res.json();
+  return content.data;
 }
 
 export async function getReviews(query = "") {
-    const res = await fetch(APIData + "/reviews" + query);
-    const content = await res.json();
-    return content.data;
+  const res = await fetch(APIData + "/reviews" + query);
+  const content = await res.json();
+  return content.data;
 }
 
 export async function postReview(review, verified = false) {
-    const res = await fetch(APIData + "/reviews", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ 
-            "data": {
-                "comment": review.comment,
-                "rating": review.rating,
-                "author": review.author,
-                "verified": verified,
-                "movie": review.movie,
-                "createdAt": new Date().toISOString(),
-                "updatedAt": new Date().toISOString(),  
-            }
-        })
-    });
+  const res = await fetch(APIData + "/reviews", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data: {
+        comment: review.comment,
+        rating: review.rating,
+        author: review.author,
+        verified: verified,
+        movie: review.movie,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+    }),
+  });
 
-    return res.json();
+  return res.json();
 }
 
-export async function getScreenings(query = '') {
-    const res = await fetch(APIData + "/screenings?populate=movie");
+export async function getScreenings(query = "") {
+  const res = await fetch(APIData + "/screenings?populate=movie");
+  const payload = await res.json();
 
-    if (query !== null) {
-        const filter = await screeningsFilter(res, query.end_time, query.items);
-        return filter
-    }
-    else {
-        const content = await res.json();
-        return content.data;
-    }
+  if (query !== null) {
+    const filter = await screeningsFilter(payload, query.end_time, query.items);
+    return filter;
+  } else {
+    const content = await res.json();
+    return content.data;
+  }
 }

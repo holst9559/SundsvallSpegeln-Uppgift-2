@@ -1,8 +1,7 @@
-export default async function screeningsFilter(res, end_time, items) {
-  const content = await res.json();
+export default async function screeningsFilter(payload, end_time, items) {
   const endTime = parseInt(end_time);
   const item = parseInt(items);
-  let data = content.data;
+  let data = payload.data;
 
   let screeningArray = [];
   let filteredArray = [];
@@ -21,7 +20,9 @@ export default async function screeningsFilter(res, end_time, items) {
 
   filteredArray = screeningArray.filter((data) => {
     const fiveData = Date.parse(data.attributes.start_time);
-    return fiveData > todaysDate && fiveData <= fiveDaysParse;
+    const dateResults = fiveData > todaysDate && fiveData <= fiveDaysParse;
+
+    return dateResults;
   });
 
   for (let j = 0; j < filteredArray.length; j++) {
@@ -31,5 +32,6 @@ export default async function screeningsFilter(res, end_time, items) {
       break;
     }
   }
+
   return shortArray;
 }

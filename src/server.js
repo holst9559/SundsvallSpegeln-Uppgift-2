@@ -8,77 +8,80 @@ import * as api from "./api.js";
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.engine("handlebars", engine({
+app.engine(
+  "handlebars",
+  engine({
     helpers: {
-        markdown: md => marked(md),
+      markdown: (md) => marked(md),
     },
-}));
+  })
+);
 app.set("view engine", "handlebars");
 app.set("views", "./handlebars-templates");
 
 app.get("/", async (req, res) => {
-    const movies = await api.getMovies();
-    res.render("homepage", { movies });
+  const movies = await api.getMovies();
+  res.render("homepage", { movies });
 });
 
 app.get("/homepage", async (req, res) => {
-    const movies = await api.getMovies();
-    res.render("homepage", { movies });
-})
+  const movies = await api.getMovies();
+  res.render("homepage", { movies });
+});
 
 app.get("/api/upcoming-screenings", async (req, res) => {
-    const data = await api.getScreenings(req.query);
-    res.json(data);
-})
+  const data = await api.getScreenings(req.query);
+  res.json(data);
+});
 
 app.get("/about", (req, res) => {
-    res.render("about");
-})
+  res.render("about");
+});
 
 app.get("/contact", (req, res) => {
-    res.render("contact");
-})
+  res.render("contact");
+});
 
 app.get("/giftcard", (req, res) => {
-    res.render("giftcard");
-})
+  res.render("giftcard");
+});
 
 app.get("/news", (req, res) => {
-    res.render("news");
-})
+  res.render("news");
+});
 
 app.get("/tickets", (req, res) => {
-    res.render("contact");
-})
+  res.render("contact");
+});
 
 app.get("/movies", (req, res) => {
-    res.render("movie");
-})
+  res.render("movie");
+});
 
 app.get("/movies/:movieId", async (req, res) => {
-    const movie = await api.getMovie(req.params.movieId);
-    if (movie) {
-        res.render("movie", { movie });
-    } else {
-        res.status(404).render("404");
-    }
-})
+  const movie = await api.getMovie(req.params.movieId);
+  if (movie) {
+    res.render("movie", { movie });
+  } else {
+    res.status(404).render("404");
+  }
+});
 
 app.post("/api/movies/:id/reviews", async (req, res) => {
-    const id = req.params.id;
-    const body = req.body;
-    const movie = await api.getMovie(id);
-    const review = {
-        movie: movie,
-        ...body,    
-    }
-    try {
-        await api.postReview(review);
-        res.status(200).end();
-    } catch (err) {
-        console.log(err);
-        res.status(500).end();
-    }
+  const id = req.params.id;
+  const body = req.body;
+  const movie = await api.getMovie(id);
+  const review = {
+    movie: movie,
+    ...body,
+  };
+  try {
+    await api.postReview(review);
+    res.status(200).end();
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
 });
 
 app.use("/static", express.static("./static"));
