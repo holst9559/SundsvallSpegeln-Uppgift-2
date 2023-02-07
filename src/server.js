@@ -8,6 +8,7 @@ import * as api from "./api.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.engine("handlebars", engine({
     helpers: {
