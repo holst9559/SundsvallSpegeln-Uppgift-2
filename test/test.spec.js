@@ -1,8 +1,8 @@
 import request from "supertest";
+import runApp from "../src/server.js";
+import { getMovie, getMovies } from "../src/api.js";
 
-import app from "../src/server.js";
-import { getMovies } from "../src/api.js";
-
+const app = runApp({ getMovie, getMovies });
 const movies = await getMovies();
 
 test("encanto test", async () => {
