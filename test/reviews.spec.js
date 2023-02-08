@@ -1,10 +1,6 @@
-import { jest } from "@jest/globals";
 import request from "supertest"; 
 import runApp from "../src/server.js";
 import { getMovie } from "../src/api.js";
-import fetch from "node-fetch";
-
-
 
 //Mocks
 const mockReview = {
@@ -13,17 +9,18 @@ const mockReview = {
     rating: 1,
 };
 
-async function postReview(review, verified = false) {
+async function postReview(review, verified = false) { //Posting review to CMS API is not necessary in these tests, so it only returns true
     return true;
 };
 
-const app = runApp({
+const app = runApp({ //Inject required api functions
     getMovie,
     postReview,
 });
 
 
 describe("POST /api/movies/:id/reviews", () => {
+
     test("status 200 if review is valid", async () => {
         const res = await request(app)
             .post("/api/movies/1/reviews")
@@ -34,6 +31,7 @@ describe("POST /api/movies/:id/reviews", () => {
         expect(res.body.status.message).not.toBeUndefined();
     });
     describe("Rating validation", () => {
+
         test("status 403 if rating is below 0", async () => {
             const res = await request(app)
                 .post("/api/movies/2/reviews")
@@ -48,6 +46,7 @@ describe("POST /api/movies/:id/reviews", () => {
         });
 
         test("status 403 if rating is above 5", async () => {
+
             const res = await request(app)
                 .post("/api/movies/2/reviews")
                 .set("Content-Type", "application/json")
@@ -75,6 +74,7 @@ describe("POST /api/movies/:id/reviews", () => {
     });
     
     describe("Author validation", () => {
+
         test("status 403 if author.length is <= 0", async () => {
             const res = await request(app)
                 .post("/api/movies/3/reviews")
@@ -89,6 +89,7 @@ describe("POST /api/movies/:id/reviews", () => {
         });
 
         test("status 400 if author is not a string", async () => {
+
             const res = await request(app)
                 .post("/api/movies/3/reviews")
                 .set("Content-Type", "application/json")
@@ -102,6 +103,7 @@ describe("POST /api/movies/:id/reviews", () => {
         });
 
         test("status 403 if author contains profanity", async () => {
+
             const res = await request(app)
                 .post("/api/movies/3/reviews")
                 .set("Content-Type", "application/json")
@@ -116,6 +118,7 @@ describe("POST /api/movies/:id/reviews", () => {
     });
 
     describe("Comment validation", () => {
+        
         test("status 403 if comment.length is > 200", async () => {
             const res = await request(app)
                 .post("/api/movies/3/reviews")

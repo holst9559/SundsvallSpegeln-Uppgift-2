@@ -76,7 +76,6 @@ export default function(api) {
         }
 
         const status = validateReview(review);
-
         if (status.isValid) {
             try {
                 await api.postReview(review, true);

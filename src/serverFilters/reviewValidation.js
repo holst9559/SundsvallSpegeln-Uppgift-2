@@ -14,7 +14,7 @@ export default function validateReview(review) {
         return {
             isValid: false,
             code: 400,
-            message: `Inte en sträng`
+            message: "Inte en sträng"
         }
     } 
 
@@ -22,7 +22,7 @@ export default function validateReview(review) {
         return {
             isValid: false,
             code: 403,
-            message: `Vänligen fyll i ditt namn`
+            message: "Vänligen fyll i ditt namn"
         }
     }
 
@@ -30,7 +30,7 @@ export default function validateReview(review) {
         return {
             isValid: false,
             code: 400,
-            message: `Inte en sträng`
+            message: "Inte en sträng"
         }
     }
 
@@ -38,7 +38,7 @@ export default function validateReview(review) {
         return {
             isValid: false,
             code: 403,
-            message: `Kommentaren är för lång`
+            message: "Kommentaren är för lång"
         }
     }
 
