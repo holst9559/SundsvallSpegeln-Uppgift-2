@@ -1,5 +1,4 @@
 export default function validateReview(review) {
-    const MIN_NAME_LENGTH = 3;
     const MAX_COMMENT_LENGTH = 200;
 
     const rating = parseInt(review.rating);
@@ -19,11 +18,11 @@ export default function validateReview(review) {
         }
     } 
 
-    if (review.author.length < MIN_NAME_LENGTH) {
+    if (review.author.length <= 0) {
         return {
             isValid: false,
             code: 403,
-            message: `Namn måste vara minst ${MIN_NAME_LENGTH} karaktärer lång`
+            message: `Vänligen fyll i ditt namn`
         }
     }
 
@@ -48,14 +47,14 @@ export default function validateReview(review) {
         return {
             isValid: false,
             code: 403,
-            message: "Kan inte innehålla svordomar"
+            message: "Får inte innehålla svordomar"
         }
     }
 
     return {
         isValid: true,
         code: 200,
-        message: "Lyckad Validation"
+        message: "Recension godkänd"
     }
 }
 

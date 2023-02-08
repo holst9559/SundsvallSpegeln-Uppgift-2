@@ -77,18 +77,16 @@ app.post("/api/movies/:id/reviews", async (req, res) => {
     }
 
     const status = validateReview(review);
-    res.status(status.code).send({ status: status });
-    /*if (status.isValid) {
+    if (status.isValid) {
         try {
-            await api.postReview(review);
-            res.status(200).end();
+            await api.postReview(review, true);
         } catch (err) {
             console.log(err);
             res.status(500).end();
         }
-    } else {
-        res.status(status.code).send(status.message);
-    }*/
+    } 
+    res.status(status.code).send({ status: status });
+
 });
 
 app.use("/static", express.static("./static"));

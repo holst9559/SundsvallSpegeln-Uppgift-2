@@ -31,6 +31,7 @@ export default function handleReviewForm() {
 
         if (status.code === 200) {
             form.reset(); 
+            updateRatingIndicator();
             showMessage("");
             hideModal();
         } else {
