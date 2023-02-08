@@ -21,8 +21,8 @@ export async function getReviews(query = "") {
     return content.data;
 }
 
-export async function postReview(review, verified = false, url = APIData + "/reviews") {
-    const res = await fetch(url, {
+export async function postReview(review, verified = false) {
+    const res = await fetch(APIData + "/reviews", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
