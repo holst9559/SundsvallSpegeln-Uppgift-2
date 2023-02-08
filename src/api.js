@@ -20,8 +20,8 @@ export async function getReviews(query = '') {
     return content.data;
 }
 
-export async function getScreenings(query = '') {
-    const res = await fetch(APIData + "/screenings" + query);
+export async function getScreenings(id) {
+    const res = await fetch(APIData + "/screenings?filters[movie]=" + id);
     const content = await res.json();
     return content.data;
 }

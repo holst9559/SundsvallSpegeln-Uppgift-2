@@ -2,9 +2,11 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
 
+
 import * as api from './api.js';
 
 const app = express();
+
 
 app.engine("handlebars", engine({
     helpers: {
@@ -50,12 +52,35 @@ app.get("/movie", (req, res) => {
 
 app.get("/movie/:movieId", async (req, res) => {
     const movie = await api.getMovie(req.params.movieId);
+    
+
     if (movie) {
         res.render("movie", { movie });
+        
     } else {
         res.status(404).render("404");
     }
-})
+   
+});
+
+  
+app.get("/api/movie/:movieId/screenings", async (req, res) => {
+    const id = req.params.movieId;
+    const data = await api.getScreenings(id);
+    data.forEach(function logic(index) {
+        const screening = new Date(index.attributes.start_time);
+        const today = new Date();
+            if(screening > today){
+                console.log('match');
+
+            }
+            else if (screening < today){
+                data.splice(index, 1);
+            } 
+    });
+    res.send(data);
+    
+});
 
 app.use("/static", express.static("./static"));
 
