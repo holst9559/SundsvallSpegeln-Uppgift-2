@@ -20,7 +20,6 @@ const app = runApp({ //Inject required api functions
 
 
 describe("POST /api/movies/:id/reviews", () => {
-
     test("status 200 if review is valid", async () => {
         const res = await request(app)
             .post("/api/movies/1/reviews")
@@ -30,8 +29,8 @@ describe("POST /api/movies/:id/reviews", () => {
         expect(res.statusCode).toBe(200);
         expect(res.body.status.message).not.toBeUndefined();
     });
-    describe("Rating validation", () => {
 
+    describe("Rating validation", () => {
         test("status 403 if rating is below 0", async () => {
             const res = await request(app)
                 .post("/api/movies/2/reviews")
@@ -46,7 +45,6 @@ describe("POST /api/movies/:id/reviews", () => {
         });
 
         test("status 403 if rating is above 5", async () => {
-
             const res = await request(app)
                 .post("/api/movies/2/reviews")
                 .set("Content-Type", "application/json")
@@ -74,7 +72,6 @@ describe("POST /api/movies/:id/reviews", () => {
     });
     
     describe("Author validation", () => {
-
         test("status 403 if author.length is <= 0", async () => {
             const res = await request(app)
                 .post("/api/movies/3/reviews")
@@ -89,7 +86,6 @@ describe("POST /api/movies/:id/reviews", () => {
         });
 
         test("status 400 if author is not a string", async () => {
-
             const res = await request(app)
                 .post("/api/movies/3/reviews")
                 .set("Content-Type", "application/json")
@@ -103,7 +99,6 @@ describe("POST /api/movies/:id/reviews", () => {
         });
 
         test("status 403 if author contains profanity", async () => {
-
             const res = await request(app)
                 .post("/api/movies/3/reviews")
                 .set("Content-Type", "application/json")
@@ -118,7 +113,6 @@ describe("POST /api/movies/:id/reviews", () => {
     });
 
     describe("Comment validation", () => {
-        
         test("status 403 if comment.length is > 200", async () => {
             const res = await request(app)
                 .post("/api/movies/3/reviews")
