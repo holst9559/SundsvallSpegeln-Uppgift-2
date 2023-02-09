@@ -34,6 +34,7 @@ export default function handleReviewForm() {
             updateRatingIndicator();
             showMessage("");
             hideModal();
+            window.location.reload();
         } else {
             showMessage(status.message);
         }
