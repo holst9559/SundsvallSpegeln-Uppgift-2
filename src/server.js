@@ -126,6 +126,15 @@ export default function (api) {
     res.status(status.code).send({ status: status });
   });
 
+  app.get("/api/movies/:id/ratings", async (req, res) => {
+    const rating = await api.getAverageRating(req.params.id);
+    if (rating) {
+      res.status(200).send({rating});
+    } else {
+      res.status(404).end();
+    }
+  });
+
   app.use("/static", express.static("./static"));
 
   return app;
