@@ -41,11 +41,6 @@ export default function (api) {
     res.render("homepage", { movies });
   });
 
-  app.get("/api/upcoming-screenings", async (req, res) => {
-    const data = await api.getScreenings(req.query);
-    res.json(data);
-  });
-
   app.get("/about", (req, res) => {
     res.render("about");
   });
@@ -77,6 +72,23 @@ export default function (api) {
     } else {
       res.status(404).render("404");
     }
+  });
+
+  app.get("/api/movies", async (req, res) => {
+    const movies = await api.getMovies();
+    res.json(movies);
+  });
+
+  app.get("/api/movies/:movieId", async (req, res) => {
+    const movie = await api.getMovie(req.params.movieId);
+    res.json(movie);
+  });
+
+  app.get("/api/movies/:movieId/screenings", async (req, res) => {
+    const movieScreenings = await api.getScreenings(
+      parseInt(req.params.movieId)
+    );
+    res.json(movieScreenings);
   });
 
   // get reviews
@@ -124,6 +136,19 @@ export default function (api) {
       }
     }
     res.status(status.code).send({ status: status });
+  });
+
+  app.get("/api/movies/:movieId/reviews/:id", async (req, res) => {
+    const reviewId = await api.getSingleMovieReview(
+      req.params.movieId,
+      req.params.id
+    );
+    res.json(reviewId);
+  });
+
+  app.get("/api/upcoming-screenings", async (req, res) => {
+    const data = await api.getScreenings(req.query);
+    res.json(data);
   });
 
   app.use("/static", express.static("./static"));

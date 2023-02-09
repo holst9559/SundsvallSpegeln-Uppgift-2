@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import movieScreenings from "./serverFilters/movieScreenings.js";
 import screeningsFilter from "./serverFilters/screeningsFilter.js";
 
 const APIData = "https://plankton-app-xhkom.ondigitalocean.app/api";
@@ -51,12 +52,34 @@ export async function postReview(review, verified = false) {
 export async function getScreenings(query = "") {
   const res = await fetch(APIData + "/screenings?populate=movie");
   const payload = await res.json();
-
-  if (query !== null) {
+  if (typeof query.items === "string") {
     const filter = await screeningsFilter(payload, query.end_time, query.items);
     return filter;
+  } else if (typeof query === "number") {
+    console.log("test");
+    const filter = await movieScreenings(payload, query);
+    return filter;
   } else {
-    const content = await res.json();
-    return content.data;
+    return payload.data;
+  }
+}
+
+export async function getSingleMovieReview(movieId, id) {
+  const res = await fetch(APIData + "/reviews?filters[movie]=" + movieId);
+  const payload = await res.json();
+  const payloadArray = payload.data;
+  const resArray = [];
+  const choiceArray = ["Choose from following review id's"];
+
+  payloadArray.forEach((i) => {
+    choiceArray.push(i.id);
+    if (i.id == id) {
+      resArray.push(i);
+    }
+  });
+  if (resArray.length !== 0) {
+    return resArray;
+  } else {
+    return choiceArray;
   }
 }
