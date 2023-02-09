@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import movieScreenings from "./serverFilters/movieScreenings.js";
 import screeningsFilter from "./serverFilters/screeningsFilter.js";
+import apiAdapter from "./apiAdapter.js";
 
 const APIData = "https://plankton-app-xhkom.ondigitalocean.app/api";
 
@@ -64,22 +65,33 @@ export async function getScreenings(query = "") {
   }
 }
 
-export async function getSingleMovieReview(movieId, id) {
-  const res = await fetch(APIData + "/reviews?filters[movie]=" + movieId);
-  const payload = await res.json();
-  const payloadArray = payload.data;
-  const resArray = [];
-  const choiceArray = ["Choose from following review id's"];
+export async function getAverageRating(
+  movieId,
+  imdbId,
+  api1 = apiAdapter.loadSelectedRatings(movieId),
+  api2 = apiAdapter.loadIMDBRating(imdbId)
+) {
+  const reviewList = await api1;
+  const imdbRes = await api2;
+  const reviews = reviewList.data;
 
-  payloadArray.forEach((i) => {
-    choiceArray.push(i.id);
-    if (i.id == id) {
-      resArray.push(i);
-    }
-  });
-  if (resArray.length !== 0) {
-    return resArray;
+  let averageRating, maxRating;
+
+  if (reviews.length >= 5) {
+    let sumOfRatings = 0;
+    reviews.forEach((review) => {
+      sumOfRatings += review.attributes.rating;
+    });
+    averageRating = sumOfRatings / reviews.length;
+    maxRating = 5;
   } else {
-    return choiceArray;
+    averageRating = imdbRes;
+    maxRating = 10;
   }
+
+  let results = {
+    rating: averageRating,
+    maxRating: maxRating,
+  };
+  return results;
 }
