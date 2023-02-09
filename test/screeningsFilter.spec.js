@@ -9,24 +9,71 @@ import {
 
 import screeningsFilter from "../src/serverFilters/screeningsFilter.js";
 
-const todaysDate = Date.parse(new Date());
+const mockDate = Date.parse("2023-02-02T17:00:00.000Z"); //Static Date for test reference
+const mockDateFive = Date.parse("2023-02-07T00:00:00.000Z");
+
+//Mocks for query strings input
+const mockQuery = {
+  end_time: "5",
+  items: "10",
+};
 
 describe("screeningsFilter()", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(Date.parse(new Date("2023-02-02T17:00:00.000Z")));
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
+  });
+
   test("Should return max 10 items", async () => {
-    const result = await screeningsFilter(mockRes, 5, 10);
+    const result = await screeningsFilter(
+      mockRes,
+      mockQuery.end_time,
+      mockQuery.items
+    );
     expect(result.length).toBeLessThanOrEqual(10);
     expect(result.length).toBeGreaterThanOrEqual(1);
   });
 
   test("Should return all screenings in the coming 5 days", async () => {
-    const result = await screeningsFilter(mockRes, 5, 10);
-    result.forEach((time) => {
-      const dateTest = Date.parse(time.attributes.start_time);
-      expect(dateTest).toBeGreaterThanOrEqual(todaysDate);
-    });
+    const result = await screeningsFilter(
+      mockRes,
+      mockQuery.end_time,
+      mockQuery.items
+    );
+    expect(Date.parse(result[0].attributes.start_time)).toBeGreaterThanOrEqual(
+      mockDate
+    );
+    expect(
+      Date.parse(result.slice(-1)[0].attributes.start_time)
+    ).toBeGreaterThanOrEqual(mockDate);
+    expect(Date.parse(result.slice(-1)[0].attributes.start_time)).toBeLessThan(
+      mockDateFive
+    );
+  });
+
+  test("Combined screening test", async () => {
+    const result = await screeningsFilter(
+      mockRes,
+      mockQuery.end_time,
+      mockQuery.items
+    );
+    expect(result.length).toBe(10);
+    expect(result[0].attributes.start_time).toBe("2023-02-02T19:00:00.000Z");
+    expect(Date.parse(result[0].attributes.start_time)).toBeGreaterThanOrEqual(
+      mockDate
+    );
+    expect(result[9].attributes.start_time).toBe("2023-02-06T19:00:00.000Z");
+    expect(Date.parse(result[9].attributes.start_time)).toBeLessThan(
+      mockDateFive
+    );
   });
 });
 
+//Static API response for test reference
 const mockRes = {
   data: [
     {
