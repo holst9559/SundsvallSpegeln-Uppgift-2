@@ -12,7 +12,8 @@
   "main": "express.js",
   "scripts": {
     "start": "nodemon .",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "build": "sass --no-source-map --watch src/scss/main.scss:static/main.css"
   },
   "repository": {
     "type": "git",

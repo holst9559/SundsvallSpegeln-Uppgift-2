@@ -1,10 +1,19 @@
 .movie-container {
   @include container;
 
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
-  background-color: $white-color;
+  margin: 0.3rem auto;
+  background-color: $container-color;
+
+  .text-container {
+    margin: 0 auto;
+
+    h1 {
+      text-decoration: underline;
+    }
+  }
 }
 
 .images-parent {
@@ -14,17 +23,20 @@
 
 .img-container,
 .poster-container {
+  border-radius: 5px;
   width: 500px;
 }
 
 .img-container img {
+  border-radius: 5px;
   width: 400px;
-  height: 600px;
+  height: 100%;
   object-fit: cover;
   margin-bottom: 1rem;
 }
 
 .poster-container img {
+  border-radius: 5px;
   width: 400px;
   height: 200px;
   object-fit: cover;
@@ -70,17 +82,25 @@ button {
   background-image: url(../../../static/assets/star-active.png);
 }
 
+.reviews {
+  padding: 0;
+}
 .reviews-container {
-  background-color: #fff;
+  background-color: $container-color;
+  margin: 0 auto;
+  border-radius: 5px;
   h1 {
     text-align: center;
     padding-top: 0.9rem;
   }
 
   .all-info {
-    background-color: $container-color ;
+    background-color: $button-color;
     margin: 1rem auto;
     padding: 0.2rem;
+    border: solid 2px $button-color;
+    width: 95%;
+    border-radius: 5px;
   }
 
   .author {
@@ -88,8 +108,8 @@ button {
     align-items: center;
   }
   .author small {
-    color: rgb(25, 24, 24);
-    font-weight: 500;
+    font-weight: 700;
+    text-decoration: underline;
   }
 }
 

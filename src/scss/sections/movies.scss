@@ -1,56 +1,49 @@
+.movie-content {
+  @include container;
 
+  .movies-now,
+  .movies-later {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    .img-div {
+      width: 350px;
+      height: 600px;
+      margin: 0 auto;
 
-.movie-content{
-    @include container;
-
-    .movies-now, .movies-later{
-        display: grid;
-       grid-template-columns: repeat(3,1fr);
-
-       
-.img-div{
-    width: 350px;
-    height: 600px;
-
-    
- img{
-    width: 90%;
-    height: 100%;
-    object-fit: cover;
-    margin: 1rem auto;
-    display: block;
-    
-     
-}
-
-
-    
-}
-     
+      img {
+        width: 90%;
+        height: 98%;
+        object-fit: cover;
+        margin: 1rem auto;
+        display: block;
+        border-radius: 5px;
+      }
     }
-
+  }
 }
 
-.movies{
+.movies {
+  background-color: $container-color;
+  margin: 1rem;
+  border-radius: 5px;
 
-    background-color: white;
-    margin: 1rem;
-
-  
-
-    p{
-        margin-left: 1rem;
-        color: gray;
-        font-weight: 500;
-    }
+  a {
+    position: relative;
+    margin-left: 1.25rem;
+    bottom: 0.25rem;
+    color: $text-color;
+    font-weight: 500;
+  }
 }
 
-.heading-1, .heading-2{
-    margin: 1rem;
+.heading-1,
+.heading-2 {
+  margin: 1rem;
 }
 
 @media (max-width: $bp-medium) {
-    .heading-1, .heading-2{
-       text-align: center;
-    }
+  .heading-1,
+  .heading-2 {
+    text-align: center;
+  }
 }
