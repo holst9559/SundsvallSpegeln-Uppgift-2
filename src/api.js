@@ -15,10 +15,15 @@ export async function getMovie(id) {
   return content.data;
 }
 
-export async function getReviews(query = "") {
-  const res = await fetch(APIData + "/reviews" + query);
-  const content = await res.json();
-  return content.data;
+export async function getReviews(movieId, pageSize, page) {
+  const res = await fetch(
+    APIData +
+      `/reviews?filters[movie]=${movieId}&pagination[pageSize]=${pageSize}&pagination[page]=${page}`
+  );
+
+  const info = await res.json();
+  const reviewsData = info.data;
+  return reviewsData;
 }
 
 export async function postReview(review, verified = false) {

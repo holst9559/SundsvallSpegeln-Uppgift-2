@@ -1,117 +1,149 @@
+.movie-container {
+  @include container;
 
-.movie-container{
-    @include container;
-    
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    background-color: $white-color;
-   
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  background-color: $white-color;
 }
 
-.images-parent{
- width: 500px;
- min-height: auto;
+.images-parent {
+  width: 500px;
+  min-height: auto;
 }
 
-.img-container, .poster-container{
-    width: 500px;
+.img-container,
+.poster-container {
+  width: 500px;
 }
 
-.img-container img{
-    width: 400px;
-    height: 600px;
-    object-fit: cover;
-    margin-bottom: 1rem;
-  
+.img-container img {
+  width: 400px;
+  height: 600px;
+  object-fit: cover;
+  margin-bottom: 1rem;
 }
 
-.poster-container img{
-    width: 400px;
-    height: 200px;
-    object-fit: cover;
+.poster-container img {
+  width: 400px;
+  height: 200px;
+  object-fit: cover;
 }
 
-
-.screening-list{
-    background-color:lightgrey;
-    padding: 1rem;
+.screening-list {
+  background-color: lightgrey;
+  padding: 1rem;
 }
 
-.screening-list li{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-   border-top: 1px solid black;
-   padding: 1rem;
-   
+.screening-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid black;
+  padding: 1rem;
 }
 
 button {
-    padding: 0.3rem 1rem;
-    border-color: rgb(147, 26, 26);
-    color:rgb(41, 8, 8) ;
+  padding: 0.3rem 1rem;
+  border-color: rgb(147, 26, 26);
+  color: rgb(41, 8, 8);
 }
 
-.title{
-    color: rgb(6, 1, 1);
+.title {
+  color: rgb(6, 1, 1);
+  font-weight: 500;
+}
+
+.rating {
+  display: flex;
+  gap: 0.1rem;
+}
+.rating .rating-star {
+  list-style-type: none;
+  width: 23px;
+  height: 20px;
+  background-image: url(../../../static/assets/star-inactive.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.rating .rating-star.active {
+  background-image: url(../../../static/assets/star-active.png);
+}
+
+.reviews-container {
+  background-color: #fff;
+  h1 {
+    text-align: center;
+    padding-top: 0.9rem;
+  }
+
+  .all-info {
+    background-color: $container-color ;
+    margin: 1rem auto;
+    padding: 0.2rem;
+  }
+
+  .author {
+    display: flex;
+    align-items: center;
+  }
+  .author small {
+    color: rgb(25, 24, 24);
     font-weight: 500;
+  }
 }
 
+.reviews-btn {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
 
+.reviews-btn button {
+  margin-right: 0.2rem;
+}
+
+.active-btn {
+  background-color: rgb(41, 8, 8);
+}
 @media (max-width: $bp-medium) {
-    .movie-container{
-        display: block;
+  .movie-container {
+    display: block;
+  }
 
+  .text-container {
+    text-align: center;
+
+    h1 {
+      font-size: 40px;
     }
 
-    .text-container{
-        
-        text-align: center;
-
-
-        h1{
-            font-size: 40px;
-        }
-
-        h3{
-            font-size: 18px;
-        }
-        p{
-            padding: 1rem;
-            font-size: 20px;
-        }
-
-      
+    h3 {
+      font-size: 18px;
     }
-
-    
+    p {
+      padding: 1rem;
+      font-size: 20px;
+    }
+  }
 }
 
 @media (max-width: $bp-large) {
-    .movie-container{
-        display: block;
-        margin: 0 auto;
-    }
+  .movie-container {
+    display: block;
+    margin: 0 auto;
+  }
 
-    .img-container, .poster-container{
-        width: 800px;
+  .img-container,
+  .poster-container {
+    width: 800px;
 
-        img{
-            width: 800px;
-        }
+    img {
+      width: 800px;
     }
+  }
 
-    .text-container{
-        font-size: 24px;
-    }
-    
+  .text-container {
+    font-size: 24px;
+  }
 }
-
-
-
-
-
-
-
-
