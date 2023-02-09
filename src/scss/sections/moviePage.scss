@@ -49,10 +49,10 @@
 
   .star {
     font-size: 2em;
-  }
 
-  .star:before {
-    content: '★';
+    &:before {
+      content: '★';
+    }
   }
 
   .average-rating {
