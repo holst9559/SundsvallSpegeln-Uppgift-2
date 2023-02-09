@@ -11,7 +11,10 @@ export default async function screeningsFilter(payload, end_time, items) {
 
   //Setting the date for endTime
   const fiveDays = new Date();
+
   fiveDays.setDate(new Date().getDate() + endTime);
+  fiveDays.setHours(0, 59, 59);
+
   const fiveDaysParse = Date.parse(fiveDays);
 
   for (let i = 0; i < data.length; i++) {
