@@ -9,7 +9,7 @@ export default async function getReviews() {
   const currentPath = window.location.pathname;
   const res = await fetch("/api" + currentPath + "/reviews/");
   const reviews = await res.json();
-  pages = paginate(reviews.attributes.reviews.data);
+  pages = paginate(reviews);
   setUpUi();
 
   console.log("pages", pages);
@@ -60,7 +60,7 @@ function showReviewsOnDom(reviews) {
       return list.innerHTML;
     })
     .join("");
-  console.log("newReviews", newReviews);
+ 
 
   reviewsDiv.innerHTML = newReviews;
 }
