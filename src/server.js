@@ -98,7 +98,7 @@ export default function (api) {
 
       const reviews = await api.getReviews(id, limit, skip);
 
-      console.log("reviews", reviews);
+      //console.log("reviews", reviews);
       return res.status(200).send(reviews);
     } catch (error) {
       console.log(error);
@@ -127,9 +127,9 @@ export default function (api) {
   });
 
   app.get("/api/movies/:id/ratings", async (req, res) => {
-    const rating = await api.getAverageRating(req.params.id);
-    if (rating) {
-      res.status(200).send({rating});
+    const data = await api.getAverageRating(req.params.id);
+    if (data) {
+      res.status(200).send({data});
     } else {
       res.status(404).end();
     }
