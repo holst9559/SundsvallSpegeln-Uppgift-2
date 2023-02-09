@@ -28,14 +28,14 @@ export async function postReview(review, verified = false) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ 
-            "data": {
-                "comment": review.comment,
-                "rating": review.rating,
-                "author": review.author,
-                "verified": verified,
-                "movie": review.movie,
-                "createdAt": new Date().toISOString(),
-                "updatedAt": new Date().toISOString(),  
+            data: {
+                comment: review.comment,
+                rating: review.rating,
+                author: review.author,
+                verified: verified,
+                movie: review.movie,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),  
             }
         })
     });
