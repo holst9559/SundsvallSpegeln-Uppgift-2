@@ -42,6 +42,32 @@
   object-fit: cover;
 }
 
+.rating-container {
+  display: flex;
+  margin: 0 1em;
+  align-items: flex-start;
+
+  .star {
+    font-size: 2em;
+
+    &:before {
+      content: '★';
+    }
+  }
+
+  .average-rating {
+    margin-left: .3em;
+    font-size: 1.3rem;
+    margin-top: .6em;
+  
+    span {
+      font-size: 1rem;
+      color: rgba($text-color, .6);
+    }
+  }
+
+}
+
 .screening-list {
   background-color: lightgrey;
   padding: 1rem;

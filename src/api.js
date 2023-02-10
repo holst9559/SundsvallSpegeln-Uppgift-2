@@ -60,3 +60,31 @@ export async function getScreenings(query = "") {
     return content.data;
   }
 }
+
+export async function getAverageRating(movieId) {
+  const res = await fetch(APIData + "/reviews?populate=movie&filters[movie]=" + movieId);
+  const content = await res.json();
+  const reviews = content.data;
+
+  let averageRating, maxRating;
+  if (reviews.length >= 5) {
+    let sumOfRatings = 0;
+    reviews.forEach(review => {
+      sumOfRatings += review.attributes.rating;
+    });
+    averageRating = Math.round((sumOfRatings / reviews.length) * 10) / 10; 
+    maxRating = 5;
+  } else {
+    //Fetch average rating from IMDB
+    const imdbId = reviews[0].attributes.movie.data.attributes.imdbId;
+    const res = await fetch(`http://www.omdbapi.com/?i=${imdbId}&apikey=6a9f2053`);
+    const data = await res.json();
+    averageRating = data.imdbRating;
+    maxRating = 10;
+  }
+
+  return {
+    rating: averageRating,
+    maxRating: maxRating,
+  };
+}
