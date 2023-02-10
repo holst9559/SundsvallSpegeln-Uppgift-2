@@ -67,19 +67,16 @@ app.get("/movie/:movieId", async (req, res) => {
 app.get("/api/movie/:movieId/screenings", async (req, res) => {
     const id = req.params.movieId;
     const data = await api.getScreenings(id);
-    
-
     const resultFilter = data.filter(comming);
 
     function comming(time){
         const screening = new Date(time.attributes.start_time);
         const today = new Date();
-       // console.log(time.attributes.start_time);
+
         if(screening >= today){
-        return time; 
+            return time; 
         } 
     }
-    console.log(resultFilter)
 
     res.send(resultFilter);
     
