@@ -57,7 +57,6 @@ export async function getScreenings(query = "") {
     const filter = await screeningsFilter(payload, query.end_time, query.items);
     return filter;
   } else if (typeof query === "number") {
-    console.log("test");
     const filter = await movieScreenings(payload, query);
     return filter;
   } else {
