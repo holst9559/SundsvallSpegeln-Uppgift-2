@@ -1,4 +1,8 @@
 .content-text {
+  h2 {
+    text-align: center;
+  }
+
   p {
     max-width: 400px;
     margin: 0 auto;
@@ -14,15 +18,19 @@
   }
 }
 
-.tickets, .about-us{
+#content-text {
+  padding-top: 0.1rem;
+}
+
+.tickets,
+.about-us {
   p {
     max-width: 800px;
   }
 }
 
-
 .content-body {
-  background-color: $container-color;
+  background-color: $background-color;
   max-width: 1280px;
   margin: 0.3em auto;
   border-radius: 5px;

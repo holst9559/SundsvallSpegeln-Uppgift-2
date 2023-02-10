@@ -1,64 +1,83 @@
 import express from "express";
 import { engine } from "express-handlebars";
 import { marked } from "marked";
+import bodyParser from "body-parser";
+import validateReview from "./serverFilters/reviewValidation.js";
 
+export default function (api) {
+  const app = express();
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(express.json());
 
-import * as api from './api.js';
+  app.engine(
+    "handlebars",
+    engine({
+      helpers: {
+        markdown: (md) => marked(md),
+      },
+    })
+  );
+  app.set("view engine", "handlebars");
+  app.set("views", "./handlebars-templates");
 
-const app = express();
+  app.engine(
+    "handlebars",
+    engine({
+      helpers: {
+        markdown: (md) => marked(md),
+      },
+    })
+  );
+  app.set("view engine", "handlebars");
+  app.set("views", "./handlebars-templates");
 
-
-app.engine("handlebars", engine({
-    helpers: {
-        markdown: md => marked(md),
-    },
-}));
-app.set("view engine", "handlebars");
-app.set("views", "./handlebars-templates");
-
-app.get("/", async (req, res) => {
+  app.get("/", async (req, res) => {
     const movies = await api.getMovies();
     res.render("homepage", { movies });
-});
+  });
 
-app.get("/homepage", async (req, res) => {
+  app.get("/homepage", async (req, res) => {
     const movies = await api.getMovies();
     res.render("homepage", { movies });
-})
+  });
 
-app.get("/about", (req, res) => {
+  app.get("/api/upcoming-screenings", async (req, res) => {
+    const data = await api.getScreenings(req.query);
+    res.json(data);
+  });
+
+  app.get("/about", (req, res) => {
     res.render("about");
-})
+  });
 
-app.get("/contact", (req, res) => {
+  app.get("/contact", (req, res) => {
     res.render("contact");
-})
+  });
 
-app.get("/giftcard", (req, res) => {
+  app.get("/giftcard", (req, res) => {
     res.render("giftcard");
-})
+  });
 
-app.get("/news", (req, res) => {
+  app.get("/news", (req, res) => {
     res.render("news");
-})
+  });
 
-app.get("/tickets", (req, res) => {
+  app.get("/tickets", (req, res) => {
     res.render("contact");
-})
+  });
 
-app.get("/movie", (req, res) => {
+  app.get("/movies", (req, res) => {
     res.render("movie");
-})
+  });
 
-app.get("/movie/:movieId", async (req, res) => {
+  app.get("/movies/:movieId", async (req, res) => {
     const movie = await api.getMovie(req.params.movieId);
     
 
     if (movie) {
-        res.render("movie", { movie });
-        
+      res.render("movie", { movie });
     } else {
-        res.status(404).render("404");
+      res.status(404).render("404");
     }
    
 });
@@ -82,6 +101,63 @@ app.get("/api/movie/:movieId/screenings", async (req, res) => {
     
 });
 
-app.use("/static", express.static("./static"));
+  // get reviews
+  app.get("/api/movies/:id/reviews", async (req, res) => {
+    try {
+      let { page, pageSize } = req.query;
 
-export default app;
+      if (!page) {
+        page = 1;
+      }
+
+      if (!pageSize) {
+        pageSize = 25;
+      }
+      const limit = parseInt(pageSize);
+      const skip = (page - 1) * pageSize;
+
+      const id = req.params.id;
+
+      const reviews = await api.getReviews(id, limit, skip);
+
+      //console.log("reviews", reviews);
+      return res.status(200).send(reviews);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  app.post("/api/movies/:id/reviews", async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    const movie = await api.getMovie(id);
+    const review = {
+      movie: movie,
+      ...body,
+    };
+
+    const status = validateReview(review);
+    if (status.isValid) {
+      try {
+        await api.postReview(review, true);
+      } catch (err) {
+        console.log(err);
+        res.status(500).end();
+      }
+    }
+    res.status(status.code).send({ status: status });
+  });
+
+  app.get("/api/movies/:id/ratings", async (req, res) => {
+    const data = await api.getAverageRating(req.params.id);
+    if (data) {
+      res.status(200).send({data});
+    } else {
+      res.status(404).end();
+    }
+  });
+
+  app.use("/static", express.static("./static"));
+
+  return app;
+};

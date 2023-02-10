@@ -1,117 +1,195 @@
+.movie-container {
+  @include container;
 
-.movie-container{
-    @include container;
-    
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    background-color: $white-color;
-   
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.3rem auto;
+  background-color: $container-color;
+
+  .text-container {
+    margin: 0 auto;
+
+    h1 {
+      text-decoration: underline;
+    }
+  }
 }
 
-.images-parent{
- width: 500px;
- min-height: auto;
+.images-parent {
+  width: 500px;
+  min-height: auto;
 }
 
-.img-container, .poster-container{
-    width: 500px;
+.img-container,
+.poster-container {
+  border-radius: 5px;
+  width: 500px;
 }
 
-.img-container img{
-    width: 400px;
-    height: 600px;
-    object-fit: cover;
-    margin-bottom: 1rem;
+.img-container img {
+  border-radius: 5px;
+  width: 400px;
+  height: 100%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.poster-container img {
+  border-radius: 5px;
+  width: 400px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.rating-container {
+  display: flex;
+  margin: 0 1em;
+  align-items: flex-start;
+
+  .star {
+    font-size: 2em;
+
+    &:before {
+      content: '★';
+    }
+  }
+
+  .average-rating {
+    margin-left: .3em;
+    font-size: 1.3rem;
+    margin-top: .6em;
   
+    span {
+      font-size: 1rem;
+      color: rgba($text-color, .6);
+    }
+  }
+
 }
 
-.poster-container img{
-    width: 400px;
-    height: 200px;
-    object-fit: cover;
+.screening-list {
+  background-color: lightgrey;
+  padding: 1rem;
 }
 
-
-.screening-list{
-    background-color:lightgrey;
-    padding: 1rem;
-}
-
-.screening-list li{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-   border-top: 1px solid black;
-   padding: 1rem;
-   
+.screening-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid black;
+  padding: 1rem;
 }
 
 button {
-    padding: 0.3rem 1rem;
-    border-color: rgb(147, 26, 26);
-    color:rgb(41, 8, 8) ;
+  padding: 0.3rem 1rem;
+  border-color: rgb(147, 26, 26);
+  color: rgb(41, 8, 8);
 }
 
-.title{
-    color: rgb(6, 1, 1);
-    font-weight: 500;
+.title {
+  color: rgb(6, 1, 1);
+  font-weight: 500;
 }
 
+.rating {
+  display: flex;
+  gap: 0.1rem;
+}
+.rating .rating-star {
+  list-style-type: none;
+  width: 23px;
+  height: 20px;
+  background-image: url(../../../static/assets/star-inactive.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.rating .rating-star.active {
+  background-image: url(../../../static/assets/star-active.png);
+}
 
+.reviews {
+  padding: 0;
+}
+.reviews-container {
+  background-color: $container-color;
+  margin: 0 auto;
+  border-radius: 5px;
+  h1 {
+    text-align: center;
+    padding-top: 0.9rem;
+  }
+
+  .all-info {
+    background-color: $button-color;
+    margin: 1rem auto;
+    padding: 0.2rem;
+    border: solid 2px $button-color;
+    width: 95%;
+    border-radius: 5px;
+  }
+
+  .author {
+    display: flex;
+    align-items: center;
+  }
+  .author small {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+}
+
+.reviews-btn {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.reviews-btn button {
+  margin-right: 0.2rem;
+}
+
+.active-btn {
+  background-color: rgb(41, 8, 8);
+}
 @media (max-width: $bp-medium) {
-    .movie-container{
-        display: block;
+  .movie-container {
+    display: block;
+  }
 
+  .text-container {
+    text-align: center;
+
+    h1 {
+      font-size: 40px;
     }
 
-    .text-container{
-        
-        text-align: center;
-
-
-        h1{
-            font-size: 40px;
-        }
-
-        h3{
-            font-size: 18px;
-        }
-        p{
-            padding: 1rem;
-            font-size: 20px;
-        }
-
-      
+    h3 {
+      font-size: 18px;
     }
-
-    
+    p {
+      padding: 1rem;
+      font-size: 20px;
+    }
+  }
 }
 
 @media (max-width: $bp-large) {
-    .movie-container{
-        display: block;
-        margin: 0 auto;
-    }
+  .movie-container {
+    display: block;
+    margin: 0 auto;
+  }
 
-    .img-container, .poster-container{
-        width: 800px;
+  .img-container,
+  .poster-container {
+    width: 800px;
 
-        img{
-            width: 800px;
-        }
+    img {
+      width: 800px;
     }
+  }
 
-    .text-container{
-        font-size: 24px;
-    }
-    
+  .text-container {
+    font-size: 24px;
+  }
 }
-
-
-
-
-
-
-
-

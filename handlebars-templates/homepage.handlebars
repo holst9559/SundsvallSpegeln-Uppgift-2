@@ -1,7 +1,10 @@
-<section class="visningstider">
+<section class="screening-times">
   <h2>
     VISNINGSTIDER
   </h2>
+  <ul class="screening-list">
+    <script>screeningTrigger();</script>
+  </ul>
 </section>
 <section class="content-right-now movie-content">
   <div class="showing-now">
@@ -12,7 +15,7 @@
           <div class="img-div">
             <img src="{{this.attributes.image.url}}" />
           </div>
-          <a href="/movie/{{this.id}}">
+          <a href="/movies/{{this.id}}">
             {{this.attributes.title}}
           </a>
         </div>
