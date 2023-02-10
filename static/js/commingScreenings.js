@@ -1,4 +1,4 @@
-const container = document.getElementsByClassName('screenings');
+const container = document.getElementById('screenings');
 const path = window.location.pathname;
 
 // path is /movie/{id} ex /movie/1
@@ -16,12 +16,10 @@ export default async function displayScreenings(){
     
     const data = await specScreenings();
     console.log('1');
+    // place each item in the array in a <div> in the screenings <ul> 
     data.forEach(function render(index){
-        console.log(index.attributes)
         const div = document.createElement('div')
-        div.innerText = index.attributes.room + "\n" +  index.attributes.start_time;
-        document.getElementById("screenings").appendChild(div);
-      
-          
+        div.innerText = index.id +'---'+ index.attributes.room + "\n" +  index.attributes.start_time + "\n ";
+        container.appendChild(div);
     })
 };

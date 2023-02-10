@@ -67,18 +67,21 @@ app.get("/movie/:movieId", async (req, res) => {
 app.get("/api/movie/:movieId/screenings", async (req, res) => {
     const id = req.params.movieId;
     const data = await api.getScreenings(id);
-    data.forEach(function logic(index) {
-        const screening = new Date(index.attributes.start_time);
-        const today = new Date();
-            if(screening > today){
-                console.log('match');
+    
 
-            }
-            else if (screening < today){
-                data.splice(index, 1);
-            } 
-    });
-    res.send(data);
+    const resultFilter = data.filter(comming);
+
+    function comming(time){
+        const screening = new Date(time.attributes.start_time);
+        const today = new Date();
+       // console.log(time.attributes.start_time);
+        if(screening >= today){
+        return time; 
+        } 
+    }
+    console.log(resultFilter)
+
+    res.send(resultFilter);
     
 });
 
