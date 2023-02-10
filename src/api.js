@@ -95,3 +95,26 @@ export async function getAverageRating(
   };
   return results;
 }
+
+export async function getSingleMovieReview(
+  movieId,
+  reviewId,
+  api = apiAdapter.loadSelectedRatings(movieId)
+) {
+  const reviews = await api;
+  const reviewsList = reviews.data;
+  const reviewArray = [];
+
+  reviewsList.forEach((rev) => {
+    if (rev.id == reviewId) {
+      reviewArray.push(rev);
+    }
+  });
+
+  if (reviewArray.length == 0) {
+    reviewArray.push("404 Not Found");
+    return reviewArray;
+  } else {
+    return reviewArray;
+  }
+}

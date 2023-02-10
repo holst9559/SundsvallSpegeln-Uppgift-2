@@ -154,7 +154,11 @@ export default function (api) {
       req.params.movieId,
       req.params.id
     );
-    res.json(reviewId);
+    if (typeof reviewId[0] == "string") {
+      res.status(404).send(reviewId);
+    } else {
+      res.status(200).send({ reviewId });
+    }
   });
 
   app.get("/api/upcoming-screenings", async (req, res) => {
