@@ -1,10 +1,11 @@
 import { describe, expect, test } from "@jest/globals";
-
 import { getAverageRating } from "../src/api";
+
 const mockId = 2;
 const mockImdb = "tt2953050";
 const mockImdbRating = 7.8;
 
+//Function to calculate average rating
 function mockMath(mockRating, mockImdbRating) {
   if (mockRating.data.length >= 5) {
     let sumOfAll = 0;
@@ -21,7 +22,7 @@ function mockMath(mockRating, mockImdbRating) {
 }
 
 describe("ratingFilterTest()", () => {
-  test("Average Rating", async () => {
+  test("Average rating from user reviews", async () => {
     const result = await getAverageRating(
       mockId,
       mockImdb,
@@ -32,7 +33,7 @@ describe("ratingFilterTest()", () => {
     expect(result.rating).toBe(mockMath(mockRating, mockImdbRating));
   });
 
-  test("IMDB Fecth", async () => {
+  test("IMDB reviews fetch", async () => {
     const result = await getAverageRating(
       mockId,
       mockImdb,
