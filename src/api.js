@@ -23,7 +23,6 @@ export async function getReviews(movieId, pageSize, page) {
 
   const info = await res.json();
   const reviewsData = info.data;
-  console.log('reviewsData',reviewsData)
   return reviewsData;
 }
 
