@@ -66,7 +66,7 @@ app.get("/movie/:movieId", async (req, res) => {
   
 app.get("/api/movie/:movieId/screenings", async (req, res) => {
     const id = req.params.movieId;
-    const data = await api.getScreenings(id);
+    const data = await api.getScreeningsById(id);
     const resultFilter = data.filter(comming);
 
     function comming(time){
