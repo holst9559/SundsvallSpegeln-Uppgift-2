@@ -1,4 +1,4 @@
-export default function handleReviewForm() {
+function handleReviewForm() {
 
     const toggle = document.querySelector("#toggle-review-form");
     toggle.addEventListener("click", () => {
@@ -87,4 +87,6 @@ function updateRatingIndicator() {
 function showMessage(message) {
     document.querySelector('#error-message').textContent = message;
 }
+
+handleReviewForm();
 
