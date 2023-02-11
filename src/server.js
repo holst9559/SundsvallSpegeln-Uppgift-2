@@ -41,11 +41,6 @@ export default function (api) {
     res.render("homepage", { movies });
   });
 
-  app.get("/api/upcoming-screenings", async (req, res) => {
-    const data = await api.getScreenings(req.query);
-    res.json(data);
-  });
-
   app.get("/about", (req, res) => {
     res.render("about");
   });
@@ -101,6 +96,23 @@ app.get("/api/movie/:movieId/screenings", async (req, res) => {
     
 });
 
+  app.get("/api/movies", async (req, res) => {
+    const movies = await api.getMovies();
+    res.json(movies);
+  });
+
+  app.get("/api/movies/:movieId", async (req, res) => {
+    const movie = await api.getMovie(req.params.movieId);
+    res.json(movie);
+  });
+
+  app.get("/api/movies/:movieId/screenings", async (req, res) => {
+    const movieScreenings = await api.getScreenings(
+      parseInt(req.params.movieId)
+    );
+    res.json(movieScreenings);
+  });
+
   // get reviews
   app.get("/api/movies/:id/reviews", async (req, res) => {
     try {
@@ -149,12 +161,31 @@ app.get("/api/movie/:movieId/screenings", async (req, res) => {
   });
 
   app.get("/api/movies/:id/ratings", async (req, res) => {
-    const data = await api.getAverageRating(req.params.id);
+    const id = req.params.id;
+    const imdb = await api.getMovie(id);
+    const data = await api.getAverageRating(id, imdb.attributes.imdbId);
     if (data) {
-      res.status(200).send({data});
+      res.status(200).send({ data });
     } else {
       res.status(404).end();
     }
+  });
+
+  app.get("/api/movies/:movieId/reviews/:id", async (req, res) => {
+    const reviewId = await api.getSingleMovieReview(
+      req.params.movieId,
+      req.params.id
+    );
+    if (typeof reviewId[0] == "string") {
+      res.status(404).send(reviewId);
+    } else {
+      res.status(200).send({ reviewId });
+    }
+  });
+
+  app.get("/api/upcoming-screenings", async (req, res) => {
+    const data = await api.getScreenings(req.query);
+    res.json(data);
   });
 
   app.use("/static", express.static("./static"));

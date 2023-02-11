@@ -1,5 +1,7 @@
 import fetch from "node-fetch";
+import movieScreenings from "./serverFilters/movieScreenings.js";
 import screeningsFilter from "./serverFilters/screeningsFilter.js";
+import apiAdapter from "./apiAdapter.js";
 
 const APIData = "https://plankton-app-xhkom.ondigitalocean.app/api";
 
@@ -56,40 +58,67 @@ export async function postReview(review, verified = false) {
 export async function getScreenings(query = "") {
   const res = await fetch(APIData + "/screenings?populate=movie");
   const payload = await res.json();
-
-  if (query !== null) {
+  if (typeof query.items === "string") {
     const filter = await screeningsFilter(payload, query.end_time, query.items);
     return filter;
+  } else if (typeof query === "number") {
+    const filter = await movieScreenings(payload, query);
+    return filter;
   } else {
-    const content = await res.json();
-    return content.data;
+    return payload.data;
   }
 }
 
-export async function getAverageRating(movieId) {
-  const res = await fetch(APIData + "/reviews?populate=movie&filters[movie]=" + movieId);
-  const content = await res.json();
-  const reviews = content.data;
+export async function getAverageRating(
+  movieId,
+  imdbId,
+  api1 = apiAdapter.loadSelectedRatings(movieId),
+  api2 = apiAdapter.loadIMDBRating(imdbId)
+) {
+  const reviewList = await api1;
+  const imdbRes = await api2;
+  const reviews = reviewList.data;
 
   let averageRating, maxRating;
+
   if (reviews.length >= 5) {
     let sumOfRatings = 0;
-    reviews.forEach(review => {
+    reviews.forEach((review) => {
       sumOfRatings += review.attributes.rating;
     });
-    averageRating = Math.round((sumOfRatings / reviews.length) * 10) / 10; 
+    averageRating = sumOfRatings / reviews.length;
     maxRating = 5;
   } else {
-    //Fetch average rating from IMDB
-    const imdbId = reviews[0].attributes.movie.data.attributes.imdbId;
-    const res = await fetch(`http://www.omdbapi.com/?i=${imdbId}&apikey=6a9f2053`);
-    const data = await res.json();
-    averageRating = data.imdbRating;
+    averageRating = imdbRes;
     maxRating = 10;
   }
 
-  return {
+  let results = {
     rating: averageRating,
     maxRating: maxRating,
   };
+  return results;
+}
+
+export async function getSingleMovieReview(
+  movieId,
+  reviewId,
+  api = apiAdapter.loadSelectedRatings(movieId)
+) {
+  const reviews = await api;
+  const reviewsList = reviews.data;
+  const reviewArray = [];
+
+  reviewsList.forEach((rev) => {
+    if (rev.id == reviewId) {
+      reviewArray.push(rev);
+    }
+  });
+
+  if (reviewArray.length == 0) {
+    reviewArray.push("404 Not Found");
+    return reviewArray;
+  } else {
+    return reviewArray;
+  }
 }

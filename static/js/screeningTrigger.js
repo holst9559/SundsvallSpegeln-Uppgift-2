@@ -1,3 +1,4 @@
+screeningTrigger();
 async function screeningTrigger() {
   const res = await fetch("/api/upcoming-screenings?end_time=5&items=10");
   const content = await res.json();
