@@ -95,3 +95,8 @@ MÖTE 2023-02-07
 - Bestämde nytt möte på fredag 2023-02-10 för att stämma av vad som är kvar att göra, om det är något.
 
 -Nästa möte fredag 2023-02-10
+
+MÖTE 2023-02-10
+
+- Stämt av hur alla ligger till
+- Alla fortsätter jobba på med det sista som är kvar
