@@ -28,6 +28,11 @@ export async function getReviews(movieId, pageSize, page) {
   return reviewsData;
 }
 
+export async function getScreeningsById(id) {
+    const res = await fetch(APIData + "/screenings?filters[movie]=" + id);
+    const content = await res.json();
+    return content.data;
+}
 export async function postReview(review, verified = false) {
   const res = await fetch(APIData + "/reviews", {
     method: "POST",

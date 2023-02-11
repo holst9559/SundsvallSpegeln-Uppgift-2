@@ -8,7 +8,15 @@
   background-color: $container-color;
 
   .text-container {
-    margin: 0 auto;
+    margin-left: 1rem;
+
+    #screenings {
+      padding-inline-start: 0;
+      div {
+        padding-bottom: 0.2rem;
+        text-decoration: underline;
+      }
+    }
 
     h1 {
       text-decoration: underline;
@@ -17,14 +25,14 @@
 }
 
 .images-parent {
-  width: 500px;
+  width: auto;
   min-height: auto;
 }
 
 .img-container,
 .poster-container {
   border-radius: 5px;
-  width: 500px;
+  width: auto;
 }
 
 .img-container img {
@@ -51,21 +59,20 @@
     font-size: 2em;
 
     &:before {
-      content: '★';
+      content: "★";
     }
   }
 
   .average-rating {
-    margin-left: .3em;
+    margin-left: 0.3em;
     font-size: 1.3rem;
-    margin-top: .6em;
-  
+    margin-top: 0.6em;
+
     span {
       font-size: 1rem;
-      color: rgba($text-color, .6);
+      color: rgba($text-color, 0.6);
     }
   }
-
 }
 
 .screening-list {
@@ -115,6 +122,7 @@ button {
   background-color: $container-color;
   margin: 0 auto;
   border-radius: 5px;
+  max-width: 1280px;
   h1 {
     text-align: center;
     padding-top: 0.9rem;
@@ -152,6 +160,7 @@ button {
 .active-btn {
   background-color: rgb(41, 8, 8);
 }
+
 @media (max-width: $bp-medium) {
   .movie-container {
     display: block;
