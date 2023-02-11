@@ -72,12 +72,34 @@ export default function (api) {
 
   app.get("/movies/:movieId", async (req, res) => {
     const movie = await api.getMovie(req.params.movieId);
+    
+
     if (movie) {
       res.render("movie", { movie });
     } else {
       res.status(404).render("404");
     }
-  });
+   
+});
+
+  
+app.get("/api/movie/:movieId/screenings", async (req, res) => {
+    const id = req.params.movieId;
+    const data = await api.getScreeningsById(id);
+    const resultFilter = data.filter(comming);
+
+    function comming(time){
+        const screening = new Date(time.attributes.start_time);
+        const today = new Date();
+
+        if(screening >= today){
+            return time; 
+        } 
+    }
+
+    res.send(resultFilter);
+    
+});
 
   // get reviews
   app.get("/api/movies/:id/reviews", async (req, res) => {
@@ -138,4 +160,4 @@ export default function (api) {
   app.use("/static", express.static("./static"));
 
   return app;
-}
+};
