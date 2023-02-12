@@ -5,14 +5,12 @@ let index = 0;
 let pages = [];
 
 // get reviews function
-export default async function getReviews() {
+async function getReviews() {
   const currentPath = window.location.pathname;
   const res = await fetch("/api" + currentPath + "/reviews/");
   const reviews = await res.json();
   pages = paginate(reviews);
   setUpUi();
-
-  console.log("pages", pages);
 }
 
 // display reviews on the dom
@@ -67,8 +65,6 @@ function showReviewsOnDom(reviews) {
 
 // pagination function
 function paginate(reviews) {
-  console.log("paginatereviews", reviews);
-
   const numOfReviewsPerPage = 5;
   const numberOfPages = Math.ceil(reviews.length / numOfReviewsPerPage);
   const newReviews = Array.from({ length: numberOfPages }, (_, index) => {
@@ -119,3 +115,5 @@ btnContainer.addEventListener("click", function (e) {
 
   setUpUi();
 });
+
+getReviews();
