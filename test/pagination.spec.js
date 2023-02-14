@@ -1,97 +1,9 @@
-import fetch from "node-fetch";
-import screeningsFilter from "./serverFilters/screeningsFilter.js";
+import request from "supertest";
+import { describe, expect, test } from "@jest/globals";
+import runApp from "../src/server.js";
+import { getReviews } from "../src/api.js";
 
-const APIData = "https://plankton-app-xhkom.ondigitalocean.app/api";
-
-export async function getMovies() {
-  const res = await fetch(APIData + "/movies");
-  const content = await res.json();
-  return content.data;
-}
-
-export async function getMovie(id) {
-  const res = await fetch(APIData + "/movies/" + id);
-  const content = await res.json();
-  return content.data;
-}
-
-export async function getReviews(movieId, pageSize, page) {
-  const res = await fetch(
-    APIData +
-      `/reviews?filters[movie]=${movieId}&pagination[pageSize]=${pageSize}&pagination[page]=${page}`
-  );
-
-  const info = await res.json();
-  const reviewsData = info.data;
-  return reviewsData;
-}
-
-export async function postReview(review, verified = false) {
-  const res = await fetch(APIData + "/reviews", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      data: {
-        comment: review.comment,
-        rating: review.rating,
-        author: review.author,
-        verified: verified,
-        movie: review.movie,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    }),
-  });
-
-  return res.json();
-}
-
-export async function getScreenings(query = "") {
-  const res = await fetch(APIData + "/screenings?populate=movie");
-  const payload = await res.json();
-
-  if (query !== null) {
-    const filter = await screeningsFilter(payload, query.end_time, query.items);
-    return filter;
-  } else {
-    const content = await res.json();
-    return content.data;
-  }
-}
-
-export async function getAverageRating(movieId) {
-  const res = await fetch(
-    APIData + "/reviews?populate=movie&filters[movie]=" + movieId
-  );
-  const content = await res.json();
-  const reviews = content.data;
-
-  let averageRating, maxRating;
-  if (reviews.length >= 5) {
-    let sumOfRatings = 0;
-    reviews.forEach((review) => {
-      sumOfRatings += review.attributes.rating;
-    });
-    averageRating = Math.round((sumOfRatings / reviews.length) * 10) / 10;
-    maxRating = 5;
-  } else {
-    //Fetch average rating from IMDB
-    const imdbId = reviews[0].attributes.movie.data.attributes.imdbId;
-    const res = await fetch(
-      `http://www.omdbapi.com/?i=${imdbId}&apikey=6a9f2053`
-    );
-    const data = await res.json();
-    averageRating = data.imdbRating;
-    maxRating = 10;
-  }
-
-  return {
-    rating: averageRating,
-    maxRating: maxRating,
-  };
-}
+const app = runApp({ getReviews });
 
 const mockData1 = {
   data: [
@@ -228,3 +140,45 @@ const mockData2 = {
     },
   },
 };
+
+const mockId = 2;
+const page = mockData1.meta.pagination.page;
+const pageSize = mockData1.meta.pagination.pageSize;
+
+const page2 = mockData2.meta.pagination.page;
+const pageSize2 = mockData2.meta.pagination.pageSize;
+
+describe("get max reviews", () => {
+  test("get max 5 reviews per page ", async () => {
+    const result = await getReviews(mockId, page, pageSize);
+    console.log('result',result, page, pageSize)
+
+    expect(result.length).toBeLessThanOrEqual(5);
+    return result;
+  });
+
+  test("pages show different reviews", async () => {
+    const result1 = await getReviews(mockId, page, pageSize);
+
+    const result2 = await getReviews(mockId, page2, pageSize2);
+
+    expect(result1[0].id).not.toStrictEqual(result2[0].id);
+  });
+
+  /* test("get different total of reviews when page size changes", async () => {
+    const res = await request(app).get(
+      "/api/movies/3/reviews?page=1&pageSize=10"
+    );
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveLength(10)
+    
+  }); */
+
+  test("correct response format", async () => {
+    const result = await getReviews(mockId, page, pageSize);
+    expect(Array.isArray(result)).toBeTruthy();
+    expect(result[0].attributes.comment).not.toBeUndefined();
+    expect(result[0].attributes.rating).not.toBeUndefined();
+    expect(result[0].attributes.author).not.toBeUndefined();
+  });
+});
