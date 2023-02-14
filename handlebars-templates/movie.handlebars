@@ -8,10 +8,16 @@
   <div class="text-container">
     <h1>{{movie.attributes.title}}</h1>
     <p>{{{markdown movie.attributes.intro}}}</p>
-  </div>
+    <ul id="screenings">
 
-  <div class="rating-container"></div>
+  </ul>
+  </div>
+<div class="rating-container"></div>
 </div>
+  
+</div>
+
+  
 
 <button class="toggle-review-form show" id="toggle-review-form"><i
     class="fa-solid fa-plus"
@@ -76,3 +82,5 @@
 </div>
 
 <script src="/static/js/handleRating.js"></script>
+<script src="/static/js/reviewForm.js"></script>
+<script src="/static/js/getReviews.js"></script>
