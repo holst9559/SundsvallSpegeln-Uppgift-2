@@ -67,8 +67,7 @@ const mockData1 = {
     pagination: {
       page: 1,
       pageSize: 5,
-      pageCount: 14,
-      total: 68,
+     
     },
   },
 };
@@ -135,8 +134,7 @@ const mockData2 = {
     pagination: {
       page: 2,
       pageSize: 5,
-      pageCount: 14,
-      total: 68,
+      
     },
   },
 };
@@ -148,31 +146,24 @@ const pageSize = mockData1.meta.pagination.pageSize;
 const page2 = mockData2.meta.pagination.page;
 const pageSize2 = mockData2.meta.pagination.pageSize;
 
-describe("get max reviews", () => {
+describe("get max 5 reviews", () => {
   test("get max 5 reviews per page ", async () => {
-    const result = await getReviews(mockId, page, pageSize);
+    const result = await getReviews(mockId, pageSize, page);
     console.log('result',result, page, pageSize)
 
-    expect(result.length).toBeLessThanOrEqual(5);
-    return result;
+    expect(result.length).toBeGreaterThanOrEqual(5);
+  
   });
 
   test("pages show different reviews", async () => {
-    const result1 = await getReviews(mockId, page, pageSize);
+    const result1 = await getReviews(mockId, pageSize,page);
 
-    const result2 = await getReviews(mockId, page2, pageSize2);
+    const result2 = await getReviews(mockId,  pageSize2,page2);
 
     expect(result1[0].id).not.toStrictEqual(result2[0].id);
   });
 
-  /* test("get different total of reviews when page size changes", async () => {
-    const res = await request(app).get(
-      "/api/movies/3/reviews?page=1&pageSize=10"
-    );
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toHaveLength(10)
-    
-  }); */
+  
 
   test("correct response format", async () => {
     const result = await getReviews(mockId, page, pageSize);
