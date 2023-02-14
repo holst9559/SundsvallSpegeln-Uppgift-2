@@ -31,6 +31,7 @@ export async function getScreeningsById(id) {
     const content = await res.json();
     return content.data;
 }
+
 export async function postReview(review, verified = false) {
   const res = await fetch(APIData + "/reviews", {
     method: "POST",
@@ -93,3 +94,25 @@ export async function getAverageRating(movieId) {
     maxRating: maxRating,
   };
 }
+
+// data = array of screenings, today = todays time and date in ISO format
+export function filterOutOldScreenings(data, today){
+ 
+  // run through the array and return objects containing time >= todaysTime
+  const res = data.filter(comming);
+    
+  // currentValue is reqired parameter but not needed, index is index of current object
+      function comming(currentValue, index){
+        const screening = new Date(data[index].attributes.start_time);
+          if(screening >= today ){
+            return data[index];
+          };
+      };
+return res;
+      
+         
+};
+  
+ 
+  
+

@@ -15,7 +15,7 @@ export default async function displayScreenings(){
     // place each item in the array in a <div> in the screenings <ul> 
     data.forEach(function render(index){
         const div = document.createElement('div')
-        div.innerText = index.id +'---'+ index.attributes.room + "\n" +  index.attributes.start_time + "\n ";
+        div.innerText = index.attributes.room + "\n" +  index.attributes.start_time;
         container.appendChild(div);
     })
 };
