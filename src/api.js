@@ -29,9 +29,9 @@ export async function getReviews(movieId, pageSize, page) {
 }
 
 export async function getScreeningsById(id) {
-    const res = await fetch(APIData + "/screenings?filters[movie]=" + id);
-    const content = await res.json();
-    return content.data;
+  const res = await fetch(APIData + "/screenings?filters[movie]=" + id);
+  const content = await res.json();
+  return content.data;
 }
 
 export async function postReview(review, verified = false) {
@@ -69,7 +69,6 @@ export async function getScreenings(query = "") {
     return payload.data;
   }
 }
-
 export async function getAverageRating(
   movieId,
   imdbId,
@@ -87,10 +86,12 @@ export async function getAverageRating(
     reviews.forEach((review) => {
       sumOfRatings += review.attributes.rating;
     });
+
     averageRating = sumOfRatings / reviews.length;
     maxRating = 5;
   } else {
     averageRating = imdbRes;
+
     maxRating = 10;
   }
 

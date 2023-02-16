@@ -129,7 +129,7 @@ export default function (api) {
 
       const reviews = await api.getReviews(id, limit, skip);
 
-      //console.log("reviews", reviews);
+      console.log("reviews", reviews);
       return res.status(200).send(reviews);
     } catch (error) {
       console.log(error);
