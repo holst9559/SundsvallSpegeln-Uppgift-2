@@ -57,7 +57,13 @@ export async function postReview(review, verified = false) {
 }
 
 export async function getScreenings(query = "") {
-  const res = await fetch(APIData + "/screenings?populate=movie");
+  const resPag = await fetch(APIData + "/screenings?populate=movie");
+  const payPag = await resPag.json();
+  console.log(payPag.meta.pagination.total);
+  const res = await fetch(
+    APIData +
+      `/screenings?populate=movie&pagination[pageSize]=${payPag.meta.pagination.total}`
+  );
   const payload = await res.json();
   if (typeof query.items === "string") {
     const filter = await screeningsFilter(payload, query.end_time, query.items);
@@ -126,23 +132,16 @@ export async function getSingleMovieReview(
 }
 
 // data = array of screenings, today = todays time and date in ISO format
-export function filterOutOldScreenings(data, today){
- 
+export function filterOutOldScreenings(data, today) {
   // run through the array and return objects containing time >= todaysTime
   const res = data.filter(comming);
-    
-  // currentValue is reqired parameter but not needed, index is index of current object
-      function comming(currentValue, index){
-        const screening = new Date(data[index].attributes.start_time);
-          if(screening >= today ){
-            return data[index];
-          };
-      };
-return res;
-      
-         
-};
-  
- 
-  
 
+  // currentValue is reqired parameter but not needed, index is index of current object
+  function comming(currentValue, index) {
+    const screening = new Date(data[index].attributes.start_time);
+    if (screening >= today) {
+      return data[index];
+    }
+  }
+  return res;
+}
