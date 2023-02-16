@@ -75,26 +75,23 @@ export default function (api) {
       res.status(404).render("404");
     }
    
-});
+  });
 
   
-app.get("/api/movie/:movieId/screenings", async (req, res) => {
+    app.get("/api/movies/:movieId/screenings", async (req, res) => {
+    // req.params.movieId takes value of :movieId in url 
     const id = req.params.movieId;
+    const today = new Date(); 
+
+    // get data from plankton api
     const data = await api.getScreeningsById(id);
-    const resultFilter = data.filter(comming);
 
-    function comming(time){
-        const screening = new Date(time.attributes.start_time);
-        const today = new Date();
-
-        if(screening >= today){
-            return time; 
-        } 
-    }
+    // run logic for screenings screeningTime >= todayTime
+    const resultFilter = api.filterOutOldScreenings(data, today);
 
     res.send(resultFilter);
     
-});
+    });
 
   app.get("/api/movies", async (req, res) => {
     const movies = await api.getMovies();
