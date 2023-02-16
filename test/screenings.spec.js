@@ -42,11 +42,12 @@ describe('describe', () => {
 
     test('test that screening times havent passed',  () => {
         const res = filterOutOldScreenings(items.data, fakeToday);
+        const resLength = res.length;
         const newTime = new Date(res[0].attributes.start_time).getTime();
         const oldTime = new Date(res[1]).getTime();
         
         expect(newTime).toBeGreaterThanOrEqual(fakeToday.getTime());
-        expect(oldTime).toBeUndefined;
+        expect(resLength).toBe(1);
     });
     
 });
