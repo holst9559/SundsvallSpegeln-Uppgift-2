@@ -1,4 +1,4 @@
-let reviewsDiv = document.querySelector(".reviews");
+const reviewsDiv = document.querySelector(".reviews");
 const btnContainer = document.querySelector(".reviews-btn");
 
 let index = 0;
@@ -16,51 +16,49 @@ async function getReviews() {
 // display reviews on the dom
 
 function showReviewsOnDom(reviews) {
-  const newReviews = reviews
-    .map((review) => {
-      let list = document.createElement("li");
 
-      let allInfo = document.createElement("div");
-      allInfo.classList.add("all-info");
-      let comment = document.createElement("p");
-      comment.innerText = review.attributes.comment;
+  reviews.forEach(review => {
 
-      let authorDiv = document.createElement("div");
-      authorDiv.classList.add("author");
+    const li = document.createElement("li");
 
-      let author = document.createElement("small");
-      author.innerText = review.attributes.author;
+    const allInfo = document.createElement("div");
+    allInfo.classList.add("all-info");
+    li.append(allInfo);
 
-      const rating = document.createElement("ul");
-      rating.role = "meter";
-      rating.ariaLabel = "rating";
-      rating.ariaValueMin = 0;
-      rating.ariaValueMax = 5;
-      rating.ariaValueNow = review.attributes.rating;
-      rating.ariaValueText = `${review.attributes.rating} out of 5`;
-      rating.classList.add("rating");
-      for (let i = 1; i <= 5; i++) {
-        const star = document.createElement("li");
-        star.classList.add("rating-star");
+    const authorDiv = document.createElement("div");
+    authorDiv.classList.add("author");
+    allInfo.append(authorDiv);
 
-        if (i <= review.attributes.rating) {
-          star.classList.add("active");
-        }
+    const author = document.createElement("small");
+    author.innerText = review.attributes.author;
+    authorDiv.append(author);
 
-        rating.append(star);
+    const rating = document.createElement("ul");
+    rating.role = "meter";
+    rating.ariaLabel = "rating";
+    rating.ariaValueMin = 0;
+    rating.ariaValueMax = 5;
+    rating.ariaValueNow = review.attributes.rating;
+    rating.ariaValueText = `${review.attributes.rating} out of 5`;
+    rating.classList.add("rating");
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement("li");
+      star.classList.add("rating-star");
+      star.ariaHidden = true;
+      if (i <= review.attributes.rating) {
+        star.classList.add("active");
       }
 
-      authorDiv.append(author, rating);
-      allInfo.append(authorDiv, comment);
-      list.append(allInfo);
-      //reviewsDiv.appendChild(list);
+      rating.append(star);
+    }
+    authorDiv.append(rating);
 
-      return list.innerHTML;
-    })
-    .join("");
- 
+    const comment = document.createElement("p");
+    comment.innerText = review.attributes.comment;
+    allInfo.append(comment);
 
-  reviewsDiv.innerHTML = newReviews;
+    reviewsDiv.append(li);
+  })
 }
 
 // pagination function
