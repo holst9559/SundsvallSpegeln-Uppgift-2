@@ -1,16 +1,14 @@
 <div class="movie-container">
   <div class="images-parent">
     <div class="img-container">
-      <img src="{{movie.attributes.image.url}}" />
+      <img src="{{movie.attributes.image.url}}" alt="movie poster"/>
     </div>
   </div>
 
   <div class="text-container">
     <h1>{{movie.attributes.title}}</h1>
     <p>{{{markdown movie.attributes.intro}}}</p>
-    <ul id="screenings">
-
-  </ul>
+    <ul id="screenings"></ul>
   </div>
 <div class="rating-container"></div>
 </div>
