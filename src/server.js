@@ -128,8 +128,8 @@ export default function (api) {
       const id = req.params.id;
 
       const reviews = await api.getReviews(id, limit, skip);
-
-      console.log("reviews", reviews);
+// console.log that log arrays of data gets a little annoying after a while 
+      //console.log("reviews", reviews);
       return res.status(200).send(reviews);
     } catch (error) {
       console.log(error);
