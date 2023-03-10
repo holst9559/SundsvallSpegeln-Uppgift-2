@@ -14,8 +14,13 @@ export default async function displayScreenings() {
 
   // place each item in the array in a <div> in the screenings <ul>
   data.forEach(function render(index) {
-    const div = document.createElement("div");
-    div.innerText = index.attributes.room + "\n" + index.attributes.start_time;
+    const date = new Date(index.attributes.start_time);
+    const dateString =
+      date.toLocaleDateString() +
+      " " +
+      date.toLocaleTimeString("en-GB", { timeZone: "UTC" });
+    const div = document.createElement("li");
+    div.innerText = index.attributes.room + " - " + dateString;
     container.appendChild(div);
   });
 }
