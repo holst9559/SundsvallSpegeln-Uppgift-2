@@ -12,7 +12,10 @@
       {{#each movies}}
         <div class="movies">
           <div class="img-div">
-            <img src="{{this.attributes.image.url}}" />
+            <img
+              alt="Movie poster of {{this.attributes.title}}"
+              src="{{this.attributes.image.url}}"
+            />
           </div>
           <a href="/movies/{{this.id}}">
             {{this.attributes.title}}
